@@ -131,11 +131,6 @@ jobs:
             // BUILD CHECK RESULT LOADING
             // 
             var buildCheck = 0
-            if (fs.existsSync('./cb-artifact-1.15/build.check.1.15')) {
-              var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.15/build.check.1.15', 'utf8'))
-              //console.log('buildCheck.1.15', buildCheckTmp)   
-              if(buildCheckTmp != 0) buildCheck = 1
-            }
             if (fs.existsSync('./cb-artifact-1.16/build.check.1.16')) {
               var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.16/build.check.1.16', 'utf8'))
               //console.log('buildCheck.1.16', buildCheckTmp)   
@@ -148,18 +143,6 @@ jobs:
             // BUILD LOG RESULT LOADING
             //             
             var buildLog = ''
-            if (fs.existsSync('./cb-artifact-1.15/build.log.1.15')) {
-              var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.15/build.check.1.15', 'utf8'))
-              if(buildCheckTmp == 0) {
-                buildLog += '\nGolang 1.15 Build Success\n'
-                buildLog += '------------------------------\n'
-                buildLog += fs.readFileSync('./cb-artifact-1.15/build.log.1.15', 'utf8')
-              } else {
-                buildLog += '\nGolang 1.15 Build Error Raised\n'
-                buildLog += '------------------------------\n'
-                buildLog += fs.readFileSync('./cb-artifact-1.15/build.log.1.15', 'utf8')              
-              }
-            }
             if (fs.existsSync('./cb-artifact-1.16/build.log.1.16')) {
               var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.16/build.check.1.16', 'utf8'))
               if(buildCheckTmp == 0) {

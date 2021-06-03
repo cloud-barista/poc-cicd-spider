@@ -127,9 +127,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ["1.16", "1.15"]
+        go: ["1.16"]
     outputs:
-      build_1_15: ${{ steps.build.outputs.build_1_15 }}
       build_1_16: ${{ steps.build.outputs.build_1_16 }}
     steps:
       - name: Check environment variable
@@ -152,7 +151,7 @@ jobs:
       - name: Run Build
         id: build
         run: |
-          (go build -o test ./src/main.go > ./outputs/build.log.${{ matrix.go }} 2>&1; echo $? > ./outputs/build.check.${{ matrix.go }} ) || true
+          (go build -o test ./api-runtime/apiserver.go > ./outputs/build.log.${{ matrix.go }} 2>&1; echo $? > ./outputs/build.check.${{ matrix.go }} ) || true
 
           if [ -f "./outputs/build.check.${{ matrix.go }}" ] ; then
             echo "======= build.check.${{ matrix.go }} ======="
@@ -164,10 +163,6 @@ jobs:
           fi
 
           buildCheck=`cat ./outputs/build.check.${{ matrix.go }}`
-          if [ ${{ matrix.go }} == "1.15" ]; then
-              echo "Golang ${{ matrix.go }} Build Error !!!"
-              echo "::set-output name=build_1_15::${buildCheck}"
-          fi
           if [ ${{ matrix.go }} == "1.16" ]; then
               echo "Golang ${{ matrix.go }} Build Error !!!"
               echo "::set-output name=build_1_16::${buildCheck}"

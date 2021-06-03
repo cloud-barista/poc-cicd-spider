@@ -307,7 +307,7 @@ jobs:
         if: ${{ steps.imgbuild.outputs.docker_build_check == 0 && needs.cb-ci-build-job.outputs.build_1_15 == 0 && needs.cb-ci-build-job.outputs.build_1_16 == 0 }}
         id: imgcheck
         run: |
-           (docker pull ${{ steps.prep.outputs.ghcr-tags }}@${{ steps.imgpublish.outputs.digest }} > ./outputs/ghcrpublish.log 2>&1; echo $? > ./outputs/ghcrpublish.check ) || true
+          (docker pull ${{ steps.prep.outputs.ghcr-tags }}@${{ steps.imgpublish.outputs.digest }} > ./outputs/ghcrpublish.log 2>&1; echo $? > ./outputs/ghcrpublish.check ) || true
           
           if [ -f "./outputs/ghcrpublish.check" ] ; then
             echo "======= ghcrpublish.check ======="

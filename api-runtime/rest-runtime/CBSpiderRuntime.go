@@ -17,9 +17,9 @@ import (
 
 	"github.com/chyeh/pubip"
 
+	"github.com/cloud-barista/cb-store/config"
 	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
 	aw "github.com/cloud-barista/poc-cicd-spider/api-runtime/rest-runtime/admin-web"
-	"github.com/cloud-barista/cb-store/config"
 	"github.com/sirupsen/logrus"
 
 	// REST API (echo)
@@ -87,79 +87,79 @@ func RunServer() {
 		{"GET", "/", aw.SpiderInfo},
 
 		//----------EndpointInfo
-		{"GET", "/endpointinfo", endpointInfo},
+		{"GET", "/endpointinfo", EndpointInfo},
 
 		//----------CloudOS
-		{"GET", "/cloudos", listCloudOS},
+		{"GET", "/cloudos", ListCloudOS},
 
 		//----------CloudDriverInfo
-		{"POST", "/driver", registerCloudDriver},
-		{"GET", "/driver", listCloudDriver},
-		{"GET", "/driver/:DriverName", getCloudDriver},
-		{"DELETE", "/driver/:DriverName", unRegisterCloudDriver},
+		{"POST", "/driver", RegisterCloudDriver},
+		{"GET", "/driver", ListCloudDriver},
+		{"GET", "/driver/:DriverName", GetCloudDriver},
+		{"DELETE", "/driver/:DriverName", UnRegisterCloudDriver},
 
 		//----------CredentialInfo
-		{"POST", "/credential", registerCredential},
-		{"GET", "/credential", listCredential},
-		{"GET", "/credential/:CredentialName", getCredential},
-		{"DELETE", "/credential/:CredentialName", unRegisterCredential},
+		{"POST", "/credential", RegisterCredential},
+		{"GET", "/credential", ListCredential},
+		{"GET", "/credential/:CredentialName", GetCredential},
+		{"DELETE", "/credential/:CredentialName", UnRegisterCredential},
 
 		//----------RegionInfo
-		{"POST", "/region", registerRegion},
-		{"GET", "/region", listRegion},
-		{"GET", "/region/:RegionName", getRegion},
-		{"DELETE", "/region/:RegionName", unRegisterRegion},
+		{"POST", "/region", RegisterRegion},
+		{"GET", "/region", ListRegion},
+		{"GET", "/region/:RegionName", GetRegion},
+		{"DELETE", "/region/:RegionName", UnRegisterRegion},
 
 		//----------ConnectionConfigInfo
-		{"POST", "/connectionconfig", createConnectionConfig},
-		{"GET", "/connectionconfig", listConnectionConfig},
-		{"GET", "/connectionconfig/:ConfigName", getConnectionConfig},
-		{"DELETE", "/connectionconfig/:ConfigName", deleteConnectionConfig},
+		{"POST", "/connectionconfig", CreateConnectionConfig},
+		{"GET", "/connectionconfig", ListConnectionConfig},
+		{"GET", "/connectionconfig/:ConfigName", GetConnectionConfig},
+		{"DELETE", "/connectionconfig/:ConfigName", DeleteConnectionConfig},
 
 		//-------------------------------------------------------------------//
 
 		//----------Image Handler
-		{"POST", "/vmimage", createImage},
-		{"GET", "/vmimage", listImage},
-		{"GET", "/vmimage/:Name", getImage},
-		{"DELETE", "/vmimage/:Name", deleteImage},
+		{"POST", "/vmimage", CreateImage},
+		{"GET", "/vmimage", ListImage},
+		{"GET", "/vmimage/:Name", GetImage},
+		{"DELETE", "/vmimage/:Name", DeleteImage},
 
 		//----------VMSpec Handler
-		{"GET", "/vmspec", listVMSpec},
-		{"GET", "/vmspec/:Name", getVMSpec},
-		{"GET", "/vmorgspec", listOrgVMSpec},
-		{"GET", "/vmorgspec/:Name", getOrgVMSpec},
+		{"GET", "/vmspec", ListVMSpec},
+		{"GET", "/vmspec/:Name", GetVMSpec},
+		{"GET", "/vmorgspec", ListOrgVMSpec},
+		{"GET", "/vmorgspec/:Name", GetOrgVMSpec},
 
 		//----------VPC Handler
-		{"POST", "/vpc", createVPC},
-		{"GET", "/vpc", listVPC},
-		{"GET", "/vpc/:Name", getVPC},
-		{"DELETE", "/vpc/:Name", deleteVPC},
+		{"POST", "/vpc", CreateVPC},
+		{"GET", "/vpc", ListVPC},
+		{"GET", "/vpc/:Name", GetVPC},
+		{"DELETE", "/vpc/:Name", DeleteVPC},
 		//-- for subnet
-		{"POST", "/vpc/:VPCName/subnet", addSubnet},
-		{"DELETE", "/vpc/:VPCName/subnet/:SubnetName", removeSubnet},
-		{"DELETE", "/vpc/:VPCName/cspsubnet/:Id", removeCSPSubnet},
+		{"POST", "/vpc/:VPCName/subnet", AddSubnet},
+		{"DELETE", "/vpc/:VPCName/subnet/:SubnetName", RemoveSubnet},
+		{"DELETE", "/vpc/:VPCName/cspsubnet/:Id", RemoveCSPSubnet},
 		//-- for management
-		{"GET", "/allvpc", listAllVPC},
-		{"DELETE", "/cspvpc/:Id", deleteCSPVPC},
+		{"GET", "/allvpc", ListAllVPC},
+		{"DELETE", "/cspvpc/:Id", DeleteCSPVPC},
 
 		//----------SecurityGroup Handler
-		{"POST", "/securitygroup", createSecurity},
-		{"GET", "/securitygroup", listSecurity},
-		{"GET", "/securitygroup/:Name", getSecurity},
-		{"DELETE", "/securitygroup/:Name", deleteSecurity},
+		{"POST", "/securitygroup", CreateSecurity},
+		{"GET", "/securitygroup", ListSecurity},
+		{"GET", "/securitygroup/:Name", GetSecurity},
+		{"DELETE", "/securitygroup/:Name", DeleteSecurity},
 		//-- for management
-		{"GET", "/allsecuritygroup", listAllSecurity},
-		{"DELETE", "/cspsecuritygroup/:Id", deleteCSPSecurity},
+		{"GET", "/allsecuritygroup", ListAllSecurity},
+		{"DELETE", "/cspsecuritygroup/:Id", DeleteCSPSecurity},
 
 		//----------KeyPair Handler
-		{"POST", "/keypair", createKey},
-		{"GET", "/keypair", listKey},
-		{"GET", "/keypair/:Name", getKey},
-		{"DELETE", "/keypair/:Name", deleteKey},
+		{"POST", "/keypair", CreateKey},
+		{"GET", "/keypair", ListKey},
+		{"GET", "/keypair/:Name", GetKey},
+		{"DELETE", "/keypair/:Name", DeleteKey},
 		//-- for management
-		{"GET", "/allkeypair", listAllKey},
-		{"DELETE", "/cspkeypair/:Id", deleteCSPKey},
+		{"GET", "/allkeypair", ListAllKey},
+		{"DELETE", "/cspkeypair/:Id", DeleteCSPKey},
 		/*
 			//----------VNic Handler
 			{"POST", "/vnic", createVNic},
@@ -174,22 +174,22 @@ func RunServer() {
 			{"DELETE", "/publicip/:PublicIPId", deletePublicIP},
 		*/
 		//----------VM Handler
-		{"POST", "/vm", startVM},
-		{"GET", "/vm", listVM},
-		{"GET", "/vm/:Name", getVM},
-		{"DELETE", "/vm/:Name", terminateVM},
+		{"POST", "/vm", StartVM},
+		{"GET", "/vm", ListVM},
+		{"GET", "/vm/:Name", GetVM},
+		{"DELETE", "/vm/:Name", TerminateVM},
 		//-- for management
-		{"GET", "/allvm", listAllVM},
-		{"DELETE", "/cspvm/:Id", terminateCSPVM},
+		{"GET", "/allvm", ListAllVM},
+		{"DELETE", "/cspvm/:Id", TerminateCSPVM},
 
-		{"GET", "/vmstatus", listVMStatus},
-		{"GET", "/vmstatus/:Name", getVMStatus},
+		{"GET", "/vmstatus", ListVMStatus},
+		{"GET", "/vmstatus/:Name", GetVMStatus},
 
-		{"GET", "/controlvm/:Name", controlVM}, // suspend, resume, reboot
+		{"GET", "/controlvm/:Name", ControlVM}, // suspend, resume, reboot
 
 		//-------------------------------------------------------------------//
 		//----------SSH RUN
-		{"POST", "/sshrun", sshRun},
+		{"POST", "/sshrun", SshRun},
 
 		//----------AdminWeb Handler
 		{"GET", "/adminweb", aw.Frame},
@@ -265,7 +265,7 @@ func apiInfo(c echo.Context) error {
 }
 
 //================ Endpoint Info
-func endpointInfo(c echo.Context) error {
+func EndpointInfo(c echo.Context) error {
 	cblog.Info("call endpointInfo()")
 
 	endpointInfo := fmt.Sprintf("\n  <CB-Spider> Multi-Cloud Infrastructure Federation Framework\n")

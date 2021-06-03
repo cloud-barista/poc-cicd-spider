@@ -24,7 +24,7 @@ import (
 )
 
 //================ List of support CloudOS
-func listCloudOS(c echo.Context) error {
+func ListCloudOS(c echo.Context) error {
 	cblog.Info("call listCloudOS()")
 
 	infoList := im.ListCloudOS()
@@ -37,7 +37,7 @@ func listCloudOS(c echo.Context) error {
 }
 
 //================ CloudDriver Handler
-func registerCloudDriver(c echo.Context) error {
+func RegisterCloudDriver(c echo.Context) error {
 	cblog.Info("call registerCloudDriver()")
 	req := &dim.CloudDriverInfo{}
 	if err := c.Bind(req); err != nil {
@@ -54,7 +54,7 @@ func registerCloudDriver(c echo.Context) error {
 	return c.JSON(http.StatusOK, &cldinfoList)
 }
 
-func listCloudDriver(c echo.Context) error {
+func ListCloudDriver(c echo.Context) error {
 	cblog.Info("call listCloudDriver()")
 
 	infoList, err := dim.ListCloudDriver()
@@ -73,7 +73,7 @@ func listCloudDriver(c echo.Context) error {
 
 }
 
-func getCloudDriver(c echo.Context) error {
+func GetCloudDriver(c echo.Context) error {
 	cblog.Info("call getCloudDriver()")
 
 	cldinfo, err := dim.GetCloudDriver(c.Param("DriverName"))
@@ -84,7 +84,7 @@ func getCloudDriver(c echo.Context) error {
 	return c.JSON(http.StatusOK, &cldinfo)
 }
 
-func unRegisterCloudDriver(c echo.Context) error {
+func UnRegisterCloudDriver(c echo.Context) error {
 	cblog.Info("call unRegisterCloudDriver()")
 
 	result, err := dim.UnRegisterCloudDriver(c.Param("DriverName"))
@@ -100,7 +100,7 @@ func unRegisterCloudDriver(c echo.Context) error {
 }
 
 //================ Credential Handler
-func registerCredential(c echo.Context) error {
+func RegisterCredential(c echo.Context) error {
 	cblog.Info("call registerCredential()")
 
 	req := &cim.CredentialInfo{}
@@ -116,7 +116,7 @@ func registerCredential(c echo.Context) error {
 	return c.JSON(http.StatusOK, &crdinfoList)
 }
 
-func listCredential(c echo.Context) error {
+func ListCredential(c echo.Context) error {
 	cblog.Info("call listCredential()")
 
 	infoList, err := cim.ListCredential()
@@ -134,7 +134,7 @@ func listCredential(c echo.Context) error {
 	return c.JSON(http.StatusOK, &jsonResult)
 }
 
-func getCredential(c echo.Context) error {
+func GetCredential(c echo.Context) error {
 	cblog.Info("call getCredential()")
 
 	crdinfo, err := cim.GetCredential(c.Param("CredentialName"))
@@ -145,7 +145,7 @@ func getCredential(c echo.Context) error {
 	return c.JSON(http.StatusOK, &crdinfo)
 }
 
-func unRegisterCredential(c echo.Context) error {
+func UnRegisterCredential(c echo.Context) error {
 	cblog.Info("call unRegisterCredential()")
 
 	result, err := cim.UnRegisterCredential(c.Param("CredentialName"))
@@ -161,7 +161,7 @@ func unRegisterCredential(c echo.Context) error {
 }
 
 //================ Region Handler
-func registerRegion(c echo.Context) error {
+func RegisterRegion(c echo.Context) error {
 	cblog.Info("call registerRegion()")
 
 	req := &rim.RegionInfo{}
@@ -177,7 +177,7 @@ func registerRegion(c echo.Context) error {
 	return c.JSON(http.StatusOK, &crdinfoList)
 }
 
-func listRegion(c echo.Context) error {
+func ListRegion(c echo.Context) error {
 	cblog.Info("call listRegion()")
 
 	infoList, err := rim.ListRegion()
@@ -195,7 +195,7 @@ func listRegion(c echo.Context) error {
 	return c.JSON(http.StatusOK, &jsonResult)
 }
 
-func getRegion(c echo.Context) error {
+func GetRegion(c echo.Context) error {
 	cblog.Info("call getRegion()")
 
 	crdinfo, err := rim.GetRegion(c.Param("RegionName"))
@@ -206,7 +206,7 @@ func getRegion(c echo.Context) error {
 	return c.JSON(http.StatusOK, &crdinfo)
 }
 
-func unRegisterRegion(c echo.Context) error {
+func UnRegisterRegion(c echo.Context) error {
 	cblog.Info("call unRegisterRegion()")
 
 	result, err := rim.UnRegisterRegion(c.Param("RegionName"))
@@ -222,7 +222,7 @@ func unRegisterRegion(c echo.Context) error {
 }
 
 //================ ConnectionConfig Handler
-func createConnectionConfig(c echo.Context) error {
+func CreateConnectionConfig(c echo.Context) error {
 	cblog.Info("call registerConnectionConfig()")
 
 	req := &ccim.ConnectionConfigInfo{}
@@ -238,7 +238,7 @@ func createConnectionConfig(c echo.Context) error {
 	return c.JSON(http.StatusOK, &crdinfoList)
 }
 
-func listConnectionConfig(c echo.Context) error {
+func ListConnectionConfig(c echo.Context) error {
 	cblog.Info("call listConnectionConfig()")
 
 	infoList, err := ccim.ListConnectionConfig()
@@ -256,7 +256,7 @@ func listConnectionConfig(c echo.Context) error {
 	return c.JSON(http.StatusOK, &jsonResult)
 }
 
-func getConnectionConfig(c echo.Context) error {
+func GetConnectionConfig(c echo.Context) error {
 	cblog.Info("call getConnectionConfig()")
 
 	crdinfo, err := ccim.GetConnectionConfig(c.Param("ConfigName"))
@@ -267,7 +267,7 @@ func getConnectionConfig(c echo.Context) error {
 	return c.JSON(http.StatusOK, &crdinfo)
 }
 
-func deleteConnectionConfig(c echo.Context) error {
+func DeleteConnectionConfig(c echo.Context) error {
 	cblog.Info("call deleteConnectionConfig()")
 
 	result, err := ccim.DeleteConnectionConfig(c.Param("ConfigName"))

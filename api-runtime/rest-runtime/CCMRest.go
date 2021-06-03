@@ -37,7 +37,7 @@ const (
 )
 
 //================ Image Handler
-func createImage(c echo.Context) error {
+func CreateImage(c echo.Context) error {
 	cblog.Info("call createImage()")
 
 	var req struct {
@@ -64,7 +64,7 @@ func createImage(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func listImage(c echo.Context) error {
+func ListImage(c echo.Context) error {
 	cblog.Info("call listImage()")
 
 	var req struct {
@@ -89,7 +89,7 @@ func listImage(c echo.Context) error {
 	return c.JSON(http.StatusOK, &jsonResult)
 }
 
-func getImage(c echo.Context) error {
+func GetImage(c echo.Context) error {
 	cblog.Info("call getImage()")
 
 	var req struct {
@@ -116,7 +116,7 @@ func getImage(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func deleteImage(c echo.Context) error {
+func DeleteImage(c echo.Context) error {
 	cblog.Info("call deleteImage()")
 
 	var req struct {
@@ -141,7 +141,7 @@ func deleteImage(c echo.Context) error {
 }
 
 //================ VMSpec Handler
-func listVMSpec(c echo.Context) error {
+func ListVMSpec(c echo.Context) error {
 	cblog.Info("call listVMSpec()")
 
 	var req struct {
@@ -165,7 +165,7 @@ func listVMSpec(c echo.Context) error {
 	return c.JSON(http.StatusOK, &jsonResult)
 }
 
-func getVMSpec(c echo.Context) error {
+func GetVMSpec(c echo.Context) error {
 	cblog.Info("call getVMSpec()")
 
 	var req struct {
@@ -185,7 +185,7 @@ func getVMSpec(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func listOrgVMSpec(c echo.Context) error {
+func ListOrgVMSpec(c echo.Context) error {
 	cblog.Info("call listOrgVMSpec()")
 
 	var req struct {
@@ -205,7 +205,7 @@ func listOrgVMSpec(c echo.Context) error {
 	return c.String(http.StatusOK, result)
 }
 
-func getOrgVMSpec(c echo.Context) error {
+func GetOrgVMSpec(c echo.Context) error {
 	cblog.Info("call getOrgVMSpec()")
 
 	var req struct {
@@ -226,7 +226,7 @@ func getOrgVMSpec(c echo.Context) error {
 }
 
 //================ VPC Handler
-func createVPC(c echo.Context) error {
+func CreateVPC(c echo.Context) error {
 	cblog.Info("call createVPC()")
 
 	var req struct {
@@ -277,7 +277,7 @@ func createVPC(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func listVPC(c echo.Context) error {
+func ListVPC(c echo.Context) error {
 	cblog.Info("call listVPC()")
 
 	var req struct {
@@ -306,7 +306,7 @@ func listVPC(c echo.Context) error {
 // (1) get args from REST Call
 // (2) get all VPC List by common-runtime API
 // (3) return REST Json Format
-func listAllVPC(c echo.Context) error {
+func ListAllVPC(c echo.Context) error {
 	cblog.Info("call listAllVPC()")
 
 	var req struct {
@@ -326,7 +326,7 @@ func listAllVPC(c echo.Context) error {
 	return c.JSON(http.StatusOK, &allResourceList)
 }
 
-func getVPC(c echo.Context) error {
+func GetVPC(c echo.Context) error {
 	cblog.Info("call getVPC()")
 
 	var req struct {
@@ -349,7 +349,7 @@ func getVPC(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func deleteVPC(c echo.Context) error {
+func DeleteVPC(c echo.Context) error {
 	cblog.Info("call deleteVPC()")
 
 	var req struct {
@@ -376,7 +376,7 @@ func deleteVPC(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func deleteCSPVPC(c echo.Context) error {
+func DeleteCSPVPC(c echo.Context) error {
 	cblog.Info("call deleteCSPVPC()")
 
 	var req struct {
@@ -403,7 +403,7 @@ func deleteCSPVPC(c echo.Context) error {
 // (1) get subnet info from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func addSubnet(c echo.Context) error {
+func AddSubnet(c echo.Context) error {
 	cblog.Info("call addSubnet()")
 
 	var req struct {
@@ -433,7 +433,7 @@ func addSubnet(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func removeSubnet(c echo.Context) error {
+func RemoveSubnet(c echo.Context) error {
 	cblog.Info("call removeSubnet()")
 
 	var req struct {
@@ -460,7 +460,7 @@ func removeSubnet(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func removeCSPSubnet(c echo.Context) error {
+func RemoveCSPSubnet(c echo.Context) error {
 	cblog.Info("call deleteCSPVPC()")
 
 	var req struct {
@@ -485,7 +485,7 @@ func removeCSPSubnet(c echo.Context) error {
 }
 
 //================ SecurityGroup Handler
-func createSecurity(c echo.Context) error {
+func CreateSecurity(c echo.Context) error {
 	cblog.Info("call createSecurity()")
 
 	var req struct {
@@ -527,7 +527,7 @@ func createSecurity(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func listSecurity(c echo.Context) error {
+func ListSecurity(c echo.Context) error {
 	cblog.Info("call listSecurity()")
 
 	var req struct {
@@ -555,7 +555,7 @@ func listSecurity(c echo.Context) error {
 // (1) get args from REST Call
 // (2) get all SG List by common-runtime API
 // (3) return REST Json Format
-func listAllSecurity(c echo.Context) error {
+func ListAllSecurity(c echo.Context) error {
 	cblog.Info("call listAllSecurity()")
 
 	var req struct {
@@ -575,7 +575,7 @@ func listAllSecurity(c echo.Context) error {
 	return c.JSON(http.StatusOK, &allResourceList)
 }
 
-func getSecurity(c echo.Context) error {
+func GetSecurity(c echo.Context) error {
 	cblog.Info("call getSecurity()")
 
 	var req struct {
@@ -598,7 +598,7 @@ func getSecurity(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func deleteSecurity(c echo.Context) error {
+func DeleteSecurity(c echo.Context) error {
 	cblog.Info("call deleteSecurity()")
 
 	var req struct {
@@ -625,7 +625,7 @@ func deleteSecurity(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func deleteCSPSecurity(c echo.Context) error {
+func DeleteCSPSecurity(c echo.Context) error {
 	cblog.Info("call deleteCSPSecurity()")
 
 	var req struct {
@@ -650,7 +650,7 @@ func deleteCSPSecurity(c echo.Context) error {
 }
 
 //================ KeyPair Handler
-func createKey(c echo.Context) error {
+func CreateKey(c echo.Context) error {
 	cblog.Info("call createKey()")
 
 	var req struct {
@@ -678,7 +678,7 @@ func createKey(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func listKey(c echo.Context) error {
+func ListKey(c echo.Context) error {
 	cblog.Info("call listKey()")
 
 	var req struct {
@@ -706,7 +706,7 @@ func listKey(c echo.Context) error {
 // (1) get args from REST Call
 // (2) get all KeyPair List by common-runtime API
 // (3) return REST Json Format
-func listAllKey(c echo.Context) error {
+func ListAllKey(c echo.Context) error {
 	cblog.Info("call listAllKey()")
 
 	var req struct {
@@ -726,7 +726,7 @@ func listAllKey(c echo.Context) error {
 	return c.JSON(http.StatusOK, &allResourceList)
 }
 
-func getKey(c echo.Context) error {
+func GetKey(c echo.Context) error {
 	cblog.Info("call getKey()")
 
 	var req struct {
@@ -749,7 +749,7 @@ func getKey(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func deleteKey(c echo.Context) error {
+func DeleteKey(c echo.Context) error {
 	cblog.Info("call deleteKey()")
 
 	var req struct {
@@ -776,7 +776,7 @@ func deleteKey(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func deleteCSPKey(c echo.Context) error {
+func DeleteCSPKey(c echo.Context) error {
 	cblog.Info("call deleteCSPKey()")
 
 	var req struct {
@@ -1064,7 +1064,7 @@ func deletePublicIP(c echo.Context) error {
 // (1) check exist(NameID)
 // (2) create Resource
 // (3) insert IID
-func startVM(c echo.Context) error {
+func StartVM(c echo.Context) error {
 	cblog.Info("call startVM()")
 
 	var req struct {
@@ -1120,7 +1120,7 @@ func startVM(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func listVM(c echo.Context) error {
+func ListVM(c echo.Context) error {
 	cblog.Info("call listVM()")
 
 	var req struct {
@@ -1149,7 +1149,7 @@ func listVM(c echo.Context) error {
 // (1) get args from REST Call
 // (2) get all VM List by common-runtime API
 // (3) return REST Json Format
-func listAllVM(c echo.Context) error {
+func ListAllVM(c echo.Context) error {
 	cblog.Info("call listAllVM()")
 
 	var req struct {
@@ -1169,7 +1169,7 @@ func listAllVM(c echo.Context) error {
 	return c.JSON(http.StatusOK, &allResourceList)
 }
 
-func getVM(c echo.Context) error {
+func GetVM(c echo.Context) error {
 	cblog.Info("call getVM()")
 
 	var req struct {
@@ -1192,7 +1192,7 @@ func getVM(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func terminateVM(c echo.Context) error {
+func TerminateVM(c echo.Context) error {
 	cblog.Info("call terminateVM()")
 
 	var req struct {
@@ -1219,7 +1219,7 @@ func terminateVM(c echo.Context) error {
 // (1) get args from REST Call
 // (2) call common-runtime API
 // (3) return REST Json Format
-func terminateCSPVM(c echo.Context) error {
+func TerminateCSPVM(c echo.Context) error {
 	cblog.Info("call terminateCSPVM()")
 
 	var req struct {
@@ -1243,7 +1243,7 @@ func terminateCSPVM(c echo.Context) error {
 	return c.JSON(http.StatusOK, &resultInfo)
 }
 
-func listVMStatus(c echo.Context) error {
+func ListVMStatus(c echo.Context) error {
 	cblog.Info("call listVMStatus()")
 
 	var req struct {
@@ -1268,7 +1268,7 @@ func listVMStatus(c echo.Context) error {
 	return c.JSON(http.StatusOK, &jsonResult)
 }
 
-func getVMStatus(c echo.Context) error {
+func GetVMStatus(c echo.Context) error {
 	cblog.Info("call getVMStatus()")
 
 	var req struct {
@@ -1292,7 +1292,7 @@ func getVMStatus(c echo.Context) error {
 	return c.JSON(http.StatusOK, &resultInfo)
 }
 
-func controlVM(c echo.Context) error {
+func ControlVM(c echo.Context) error {
 	cblog.Info("call controlVM()")
 
 	var req struct {

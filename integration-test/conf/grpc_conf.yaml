@@ -1,0 +1,7 @@
+version: 1
+grpc:
+  spidersrv:
+    addr: :2048
+  spidercli:
+    server_addr: 127.0.0.1:2048
+    timeout: 90s

@@ -334,7 +334,7 @@ jobs:
             // 
             var publishReport = {}
             publishReport.version = '1.0'
-            publishReport.title = 'CB-LADYBUG Dashboard'
+            publishReport.title = 'CB-SPIDER Dashboard'
             publishReport.lint = {}
             publishReport.lint.deadcode = {}
             publishReport.lint.deadcode.cnt = deadcodeLintCnt

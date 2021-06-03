@@ -1,0 +1,433 @@
+name: CB-CI-REPORTS-WORKFLOW
+
+on:
+  workflow_run:
+    workflows: ["CB-CI-ACTIONS-WORKFLOW"]
+    types:
+      - completed
+
+jobs:
+  cb-ci-reports-job:
+    name: CB-CI-REPORTS-JOB
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Check environment variable
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: |
+          echo "workflow starting..."
+
+      - name: Download cb-actions-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: cb-actions.yaml
+          workflow_conclusion: success
+
+      - name: Display structure of downloaded files
+        run: ls -R ./cb-*
+
+      - name: Load Result Info
+        id: loadResultInfo
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log(context)
+            var fs = require('fs');
+
+            //
+            // PR NUMBER LOADING
+            //
+            var prNumber = 0
+            if (fs.existsSync('./cb-artifact/pr_number.txt')) {
+              prNumber = Number(fs.readFileSync('./cb-artifact/pr_number.txt', 'utf8'))
+            }
+            //console.log('prNumber', prNumber)
+            core.setOutput('prNumber', prNumber)
+
+            //
+            // DEADCODE LINT RESULT LOADING
+            //
+            var deadcodelLintResultTxt = ''
+            if (fs.existsSync('./cb-artifact/deadcode-lint-result.txt')) {
+              deadcodelLintResultTxt = fs.readFileSync('./cb-artifact/deadcode-lint-result.txt', 'utf8')
+            }
+            //console.log('deadcodelLintResultTxt', deadcodelLintResultTxt)  
+            core.setOutput('deadcodelLintResultTxt', deadcodelLintResultTxt)
+
+            //
+            // ERRCHECK LINT RESULT LOADING
+            //            
+            var errchecklLintResultTxt = ''
+            if (fs.existsSync('./cb-artifact/errcheck-lint-result.txt')) {
+              errchecklLintResultTxt = fs.readFileSync('./cb-artifact/errcheck-lint-result.txt', 'utf8')
+            }
+            //console.log('errchecklLintResultTxt', errchecklLintResultTxt)  
+            core.setOutput('errchecklLintResultTxt', errchecklLintResultTxt) 
+
+            //
+            // STATICCHECK LINT RESULT LOADING
+            //             
+            var staticcheckLintResultTxt = ''
+            if (fs.existsSync('./cb-artifact/staticcheck-lint-result.txt')) {
+              staticcheckLintResultTxt = fs.readFileSync('./cb-artifact/staticcheck-lint-result.txt', 'utf8')
+            }
+            //console.log('staticcheckLintResultTxt', staticcheckLintResultTxt)  
+            core.setOutput('staticcheckLintResultTxt', staticcheckLintResultTxt)   
+
+            //
+            // REVIVE LINT RESULT LOADING
+            //             
+            var revivelLintResultTxt = ''
+            if (fs.existsSync('./cb-artifact/revive-lint-result.txt')) {
+              revivelLintResultTxt = fs.readFileSync('./cb-artifact/revive-lint-result.txt', 'utf8')
+            }
+            //console.log('revivelLintResultTxt', revivelLintResultTxt)  
+            core.setOutput('revivelLintResultTxt', revivelLintResultTxt)    
+
+            //
+            // UNIT TEST RESULT LOADING
+            //              
+            var unitTestXml = ''
+            if (fs.existsSync('./cb-artifact/unit-tests.xml')) {
+              unitTestXml = fs.readFileSync('./cb-artifact/unit-tests.xml', 'utf8')
+            }
+            //console.log('unitTestXml', unitTestXml)  
+            core.setOutput('unitTestXml', unitTestXml)  
+
+            //
+            // COVERAGE CHECK RESULT LOADING
+            //             
+            var coverageCheck = 0
+            if (fs.existsSync('./cb-artifact/coverage.check')) {
+              coverageCheck = Number(fs.readFileSync('./cb-artifact/coverage.check', 'utf8'))
+            }
+            //console.log('coverageCheck', coverageCheck)  
+            core.setOutput('coverageCheck', coverageCheck)   
+
+            //
+            // COVERAGE LOG RESULT LOADING
+            //             
+            var coverageLog = ''
+            if (fs.existsSync('./cb-artifact/coverage.log')) {
+              coverageLog = fs.readFileSync('./cb-artifact/coverage.log', 'utf8')
+            }
+            //console.log('coverageLog', coverageLog) 
+            core.setOutput('coverageLog', coverageLog)    
+
+            //
+            // COVERAGE TXT RESULT LOADING
+            // 
+            var coverageTxt = ''
+            if (fs.existsSync('./cb-artifact/coverage.txt')) {
+              coverageTxt = fs.readFileSync('./cb-artifact/coverage.txt', 'utf8')
+            }
+            //console.log('coverageTxt', coverageTxt) 
+            core.setOutput('coverageTxt', coverageTxt)    
+
+            //
+            // BUILD CHECK RESULT LOADING
+            // 
+            var buildCheck = 0
+            if (fs.existsSync('./cb-artifact-1.15/build.check.1.15')) {
+              var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.15/build.check.1.15', 'utf8'))
+              //console.log('buildCheck.1.15', buildCheckTmp)   
+              if(buildCheckTmp != 0) buildCheck = 1
+            }
+            if (fs.existsSync('./cb-artifact-1.16/build.check.1.16')) {
+              var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.16/build.check.1.16', 'utf8'))
+              //console.log('buildCheck.1.16', buildCheckTmp)   
+              if(buildCheckTmp != 0) buildCheck = 1
+            }            
+            //console.log('buildCheck', buildCheck)   
+            core.setOutput('buildCheck', buildCheck)   
+
+            //
+            // BUILD LOG RESULT LOADING
+            //             
+            var buildLog = ''
+            if (fs.existsSync('./cb-artifact-1.15/build.log.1.15')) {
+              var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.15/build.check.1.15', 'utf8'))
+              if(buildCheckTmp == 0) {
+                buildLog += '\nGolang 1.15 Build Success\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.15/build.log.1.15', 'utf8')
+              } else {
+                buildLog += '\nGolang 1.15 Build Error Raised\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.15/build.log.1.15', 'utf8')              
+              }
+            }
+            if (fs.existsSync('./cb-artifact-1.16/build.log.1.16')) {
+              var buildCheckTmp = Number(fs.readFileSync('./cb-artifact-1.16/build.check.1.16', 'utf8'))
+              if(buildCheckTmp == 0) {
+                buildLog += '\nGolang 1.16 Build Success\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.16/build.log.1.16', 'utf8')
+              } else {
+                buildLog += '\nGolang 1.16 Build Error Raised\n'
+                buildLog += '------------------------------\n'
+                buildLog += fs.readFileSync('./cb-artifact-1.16/build.log.1.16', 'utf8')           
+              }
+            }            
+            //console.log('buildLog', buildLog)   
+            core.setOutput('buildLog', buildLog)
+
+            //
+            // DOCKER BUILD CHECK RESULT LOADING
+            // 
+            var dockerBuildRun = 0
+            var dockerBuildCheck = 0
+            if (fs.existsSync('./cb-artifact-deploy/dockerbuild.check')) {
+              dockerBuildRun = 1
+              dockerBuildCheck = Number(fs.readFileSync('./cb-artifact-deploy/dockerbuild.check', 'utf8'))
+            }
+            //console.log('dockerBuildRun', dockerBuildRun)   
+            core.setOutput('dockerBuildRun', dockerBuildRun)             
+            //console.log('dockerBuildCheck', dockerBuildCheck)   
+            core.setOutput('dockerBuildCheck', dockerBuildCheck)   
+
+            //
+            // DOCKER BUILD LOG RESULT LOADING
+            //             
+            var dockerBuildLog = ''
+            if (fs.existsSync('./cb-artifact-deploy/dockerbuild.log')) {
+              dockerBuildLog = fs.readFileSync('./cb-artifact-deploy/dockerbuild.log', 'utf8')
+            }
+            //console.log('dockerBuildLog', dockerBuildLog)   
+            core.setOutput('dockerBuildLog', dockerBuildLog)
+
+            //
+            // DOCKER PUBLISH CHECK RESULT LOADING
+            //             
+            var publishRun = 0
+            var publishCheck = 0
+            if (fs.existsSync('./cb-artifact-deploy/ghcrpublish.check')) {
+              publishRun = 1
+              var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/ghcrpublish.check', 'utf8'))
+              //console.log('ghcrPublishCheck', publishCheckTmp)   
+              if(publishCheckTmp != 0) publishCheck = 1
+            }
+            if (fs.existsSync('./cb-artifact-deploy/dockerpublish.check')) {
+              publishRun = 1
+              var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/dockerpublish.check', 'utf8'))
+              //console.log('dockerPublishCheck', publishCheckTmp)   
+              if(publishCheckTmp != 0) publishCheck = 1
+            }      
+            //console.log('publishRun', publishRun)   
+            core.setOutput('publishRun', publishRun)                   
+            //console.log('publishCheck', publishCheck)   
+            core.setOutput('publishCheck', publishCheck) 
+
+            //
+            // DOCKER PUBLISH LOG RESULT LOADING
+            //  
+            var publishLog = ''
+            if (fs.existsSync('./cb-artifact-deploy/ghcrpublish.log')) {
+              var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/ghcrpublish.check', 'utf8'))
+              if(publishCheckTmp == 0) {
+                publishLog += '\nGitHub Container Registry Publish Success\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/ghcrpublish.log', 'utf8')
+              } else {
+                publishLog += '\nGitHub Container Registry Publish Error Raised\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/ghcrpublish.log', 'utf8')                
+              }
+            }
+            if (fs.existsSync('./cb-artifact-deploy/dockerpublish.log')) {
+              var publishCheckTmp = Number(fs.readFileSync('./cb-artifact-deploy/dockerpublish.check', 'utf8'))
+              if(publishCheckTmp == 0) {
+                publishLog += '\nDocker Hub Publish Success\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/dockerpublish.log', 'utf8')
+              } else {
+                publishLog += '\nDocker Hub Publish Error Raised\n'
+                publishLog += '------------------------------\n'
+                publishLog += fs.readFileSync('./cb-artifact-deploy/dockerpublish.log', 'utf8')           
+              }
+            }            
+            //console.log('publishLog', publishLog)   
+            core.setOutput('publishLog', publishLog)      
+
+            //
+            // SUMMARY REPORT GENERATION
+            //             
+            var summaryReport = '# Summary Result\n'
+
+            deadcodeLintCnt = (deadcodelLintResultTxt.match(/\(deadcode\)/g) || []).length
+            console.log('deadcodeLintCnt', deadcodeLintCnt) 
+            core.setOutput('deadcodeLintCnt', deadcodeLintCnt)  
+            summaryReport += '- deadcode(lint) : ' + deadcodeLintCnt + ' found\n'
+
+            errcheckLintCnt = (errchecklLintResultTxt.match(/\(errcheck\)/g) || []).length
+            console.log('errcheckLintCnt', errcheckLintCnt) 
+            core.setOutput('errcheckLintCnt', errcheckLintCnt)  
+            summaryReport += '- errcheck(lint) : ' + errcheckLintCnt + ' found\n'    
+
+            staticcheckLintCnt = (staticcheckLintResultTxt.match(/\(staticcheck\)/g) || []).length
+            console.log('staticcheckLintCnt', staticcheckLintCnt) 
+            core.setOutput('staticcheckLintCnt', staticcheckLintCnt)  
+            summaryReport += '- staticcheck(lint) : ' + staticcheckLintCnt + ' found\n'       
+
+            reviveLintCnt = (revivelLintResultTxt.match(/\(revive\)/g) || []).length
+            console.log('reviveLintCnt', reviveLintCnt) 
+            core.setOutput('reviveLintCnt', reviveLintCnt)  
+            summaryReport += '- revive(lint) : ' + reviveLintCnt + ' found\n'                               
+
+            var coverageTotal = '-'
+            if (fs.existsSync('./cb-artifact/coverage.total')) {
+              coverageTotal = fs.readFileSync('./cb-artifact/coverage.total', 'utf8')
+              coverageTotal = coverageTotal.trim()
+              if(coverageTotal == '') coverageTotal = '-'
+            }
+            console.log('coverageTotal', coverageTotal) 
+            core.setOutput('coverageTotal', coverageTotal)  
+            summaryReport += '- coverage total : ' + coverageTotal + '\n'
+
+            var testCaseAllCnt = 0
+            const regexTests = /tests="(.*?)"/g;
+            while (current = regexTests.exec(unitTestXml)) {
+              testCaseAllCnt += Number(current.pop())
+            }
+            var testCaseFailCnt = 0
+            const regexFailures = /failures="(.*?)"/g;
+            while (current = regexFailures.exec(unitTestXml)) {
+              testCaseFailCnt += Number(current.pop())
+            }
+            console.log('testCaseAllCnt', testCaseAllCnt) 
+            core.setOutput('testCaseAllCnt', testCaseAllCnt)  
+            console.log('testCaseFailCnt', testCaseFailCnt) 
+            core.setOutput('testCaseFailCnt', testCaseFailCnt)  
+            summaryReport += '- unit test : ' + testCaseAllCnt + ' tests, ' + testCaseFailCnt + ' failure\n'
+
+            if(buildCheck != 0) {
+              summaryReport += '- go build : fail\n'
+            } else {
+              summaryReport += '- go build : success\n'
+            }
+
+            if(dockerBuildRun == 1) {
+              if(dockerBuildCheck != 0) {
+                summaryReport += '- docker build : fail\n'
+              } else {
+                summaryReport += '- docker build : success\n'
+              }   
+            } else {
+              summaryReport += '- docker build : -\n'
+            }
+
+            if(publishRun == 1) {
+              if(publishCheck != 0) {
+                summaryReport += '- deploy : fail\n'
+              } else {
+                summaryReport += '- deploy : success\n'
+              }   
+            } else {
+              summaryReport += '- deploy : -\n'
+            }       
+
+            var dateObj = new Date()
+            var year = dateObj.getFullYear()
+            var month = ('0' + (dateObj.getMonth() + 1)).slice(-2)
+            var date = ('0' + dateObj.getDate()).slice(-2)
+
+            var reportPath = 'cb-publish/' + context.payload.repository.name + '/' + context.payload.workflow_run.head_branch + '/' + year + '/' + month + '/' + date
+            console.log('reportPath', reportPath)   
+            core.setOutput('reportPath', reportPath)
+
+            !fs.existsSync(reportPath) && fs.mkdirSync(reportPath, { recursive: true })
+
+            summaryReport += '\n'
+            summaryReport += '<a href="https://cloud-barista.github.io/poc-cicd-dashboard/index.html?info=' + reportPath + '/' + context.sha + '.json" target="_blank" rel="noopener">[details]</a>\n'
+
+            console.log('summaryReport', summaryReport)   
+            core.setOutput('summaryReport', summaryReport)
+
+            //
+            // JSON GENERATION for details information
+            // 
+            var publishReport = {}
+            publishReport.version = '1.0'
+            publishReport.title = 'CB-LADYBUG Dashboard'
+            publishReport.lint = {}
+            publishReport.lint.deadcode = {}
+            publishReport.lint.deadcode.cnt = deadcodeLintCnt
+            publishReport.lint.deadcode.details = deadcodelLintResultTxt   
+            publishReport.lint.errcheck = {}
+            publishReport.lint.errcheck.cnt = errcheckLintCnt
+            publishReport.lint.errcheck.details = errchecklLintResultTxt   
+            publishReport.lint.staticcheck = {}
+            publishReport.lint.staticcheck.cnt = staticcheckLintCnt
+            publishReport.lint.staticcheck.details = staticcheckLintResultTxt      
+            publishReport.lint.revive = {}
+            publishReport.lint.revive.cnt = reviveLintCnt
+            publishReport.lint.revive.details = revivelLintResultTxt    
+            publishReport.test = {}      
+            publishReport.test.unit = {}   
+            publishReport.test.unit.check = coverageCheck     
+            publishReport.test.unit.details = coverageLog
+            publishReport.test.unit.allCnt = testCaseAllCnt 
+            publishReport.test.unit.failCnt = testCaseFailCnt 
+            publishReport.test.coverage = {}
+            publishReport.test.coverage.check = coverageCheck     
+            publishReport.test.coverage.details = coverageLog  
+            publishReport.test.coverage.total = coverageTotal     
+            publishReport.build = {}
+            publishReport.build.check = buildCheck     
+            publishReport.build.details = buildLog   
+            publishReport.deploy = {}
+            publishReport.deploy.dockerBuild = {}
+            publishReport.deploy.dockerBuild.run = dockerBuildRun
+            publishReport.deploy.dockerBuild.check = dockerBuildCheck
+            publishReport.deploy.dockerBuild.details = dockerBuildLog
+            publishReport.deploy.publish = {}
+            publishReport.deploy.publish.run = publishRun
+            publishReport.deploy.publish.check = publishCheck
+            publishReport.deploy.publish.details = publishLog
+
+            fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8');
+            fs.copyFileSync('./cb-artifact/coverage.html', reportPath + '/' + context.sha + '.html')
+
+            console.log('jsonFile', reportPath + '/' + context.sha + '.json')   
+            core.setOutput('jsonFile', reportPath + '/' + context.sha + '.json')
+
+            console.log('htmlFile', reportPath + '/' + context.sha + '.html')   
+            core.setOutput('htmlFile', reportPath + '/' + context.sha + '.html')            
+
+      - name: Publish generated content without github clone
+        run: |
+          resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.jsonFile }})
+          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.jsonFile }} | jq .sha)}" | curl \
+            -X PUT \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
+            -H "content-type: application/json" \
+            https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.jsonFile }} \
+            -d @-
+ 
+          resp=$(openssl base64 -A -in ${{ steps.loadResultInfo.outputs.htmlFile }})
+          echo "{\"message\":\"Add report file\",\"content\":\"${resp}\", \"sha\": $(curl -X GET https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.htmlFile }} | jq .sha)}" | curl \
+            -X PUT \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
+            -H "content-type: application/json" \
+            https://api.github.com/repos/cloud-barista/poc-cicd-dashboard/contents/${{ steps.loadResultInfo.outputs.htmlFile }} \
+            -d @-
+
+      - name: Publish Summary Results(PR)
+        if: ${{ github.event.workflow_run.event == 'pull_request' }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.loadResultInfo.outputs.prNumber }}
+          body: |
+            ${{ steps.loadResultInfo.outputs.summaryReport }}
+
+      - name: Publish Summary Results(Push)
+        if: ${{ github.event.workflow_run.event == 'push' }}
+        uses: peter-evans/commit-comment@v1
+        with:
+          body: |
+            ${{ steps.loadResultInfo.outputs.summaryReport }}

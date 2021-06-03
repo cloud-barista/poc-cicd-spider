@@ -14,10 +14,10 @@ import (
 	"sync"
 	"time"
 
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	grpcruntime "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime"
-	meerkatruntime "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime"
-	restruntime "github.com/cloud-barista/cb-spider/api-runtime/rest-runtime"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	grpcruntime "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime"
+	meerkatruntime "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime"
+	restruntime "github.com/cloud-barista/poc-cicd-spider/api-runtime/rest-runtime"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/spf13/cobra"

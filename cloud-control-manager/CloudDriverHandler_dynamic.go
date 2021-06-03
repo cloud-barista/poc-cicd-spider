@@ -11,17 +11,17 @@
 package clouddriverhandler
 
 import (
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
 
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/sirupsen/logrus"
 
-	icon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/connect"
-	ccim "github.com/cloud-barista/cb-spider/cloud-info-manager/connection-config-info-manager"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/credential-info-manager"
-	dim "github.com/cloud-barista/cb-spider/cloud-info-manager/driver-info-manager"
-	rim "github.com/cloud-barista/cb-spider/cloud-info-manager/region-info-manager"
+	icon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/connect"
+	ccim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/connection-config-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/credential-info-manager"
+	dim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/driver-info-manager"
+	rim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/region-info-manager"
 
 	//"encoding/json"
 	"fmt"

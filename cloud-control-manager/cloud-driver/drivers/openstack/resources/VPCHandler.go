@@ -11,8 +11,8 @@ import (
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/networks"
 	"github.com/gophercloud/gophercloud/openstack/networking/v2/subnets"
 
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 const (

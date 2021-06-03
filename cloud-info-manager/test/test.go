@@ -9,7 +9,7 @@
 package main
 
 import (
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager"
 
 	"fmt"
 )

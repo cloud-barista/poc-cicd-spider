@@ -18,9 +18,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 type AwsSecurityHandler struct {

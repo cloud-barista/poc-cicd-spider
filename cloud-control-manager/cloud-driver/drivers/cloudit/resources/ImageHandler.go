@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client/ace/image"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client/ace/image"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 const (

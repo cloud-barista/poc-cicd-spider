@@ -12,12 +12,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
 	"golang.org/x/crypto/ssh"
 
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 const (

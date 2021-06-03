@@ -17,9 +17,9 @@ import (
 	"context"
         "github.com/docker/docker/client"
 
-	dkcon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/docker/connect"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	icon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/connect"
+	dkcon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/docker/connect"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	icon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/connect"
 )
 
 type DockerDriver struct{}

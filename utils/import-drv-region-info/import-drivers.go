@@ -12,7 +12,7 @@ import (
         "github.com/sirupsen/logrus"
         "github.com/cloud-barista/cb-store/config"
 
-	dim "github.com/cloud-barista/cb-spider/cloud-info-manager/driver-info-manager"
+	dim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/driver-info-manager"
 	"strings"
 	"os"
 	"path/filepath"

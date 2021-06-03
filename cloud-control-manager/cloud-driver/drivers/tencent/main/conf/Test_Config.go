@@ -14,8 +14,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	tdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/tencent"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
+	tdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/tencent"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 

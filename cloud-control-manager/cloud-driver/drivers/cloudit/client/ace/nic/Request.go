@@ -2,8 +2,8 @@ package nic
 
 import (
 	cblog "github.com/cloud-barista/cb-log"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client/iam/securitygroup"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client/iam/securitygroup"
 	"github.com/sirupsen/logrus"
 )
 

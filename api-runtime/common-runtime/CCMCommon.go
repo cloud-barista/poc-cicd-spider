@@ -15,13 +15,13 @@ import (
 	"sync"
 	"time"
 
-	ccm "github.com/cloud-barista/cb-spider/cloud-control-manager"
-	cres "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
-	iidm "github.com/cloud-barista/cb-spider/cloud-control-manager/iid-manager"
+	ccm "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager"
+	cres "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	iidm "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/iid-manager"
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/sirupsen/logrus"
 
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
 )
 
 // define string of resource types

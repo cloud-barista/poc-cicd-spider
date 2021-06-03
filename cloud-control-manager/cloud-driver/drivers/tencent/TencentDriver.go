@@ -15,9 +15,9 @@ package tencent
 import (
 	"errors"
 
-	tcon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/tencent/connect"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	icon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/connect"
+	tcon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/tencent/connect"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	icon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/connect"
 
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common"
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"

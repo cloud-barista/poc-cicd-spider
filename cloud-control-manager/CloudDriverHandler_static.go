@@ -11,30 +11,30 @@
 package clouddriverhandler
 
 import (
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
 
-	alibabadrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/alibaba"
-	awsdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/aws"
-	azuredrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/azure"
-	clouditdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit"
-	dockerdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/docker"
-	gcpdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/gcp"
-	mockdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/mock"
-	openstackdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/openstack"
+	alibabadrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/alibaba"
+	awsdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/aws"
+	azuredrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/azure"
+	clouditdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit"
+	dockerdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/docker"
+	gcpdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/gcp"
+	mockdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/mock"
+	openstackdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/openstack"
 
-	// ncpdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/ncp" // NCP
-	// ncpvpcdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/ncpvpc" // NCP-VPC
+	// ncpdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/ncp" // NCP
+	// ncpvpcdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/ncpvpc" // NCP-VPC
 
 	icbs "github.com/cloud-barista/cb-store/interfaces"
 
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/sirupsen/logrus"
 
-	icon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/connect"
-	ccim "github.com/cloud-barista/cb-spider/cloud-info-manager/connection-config-info-manager"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/credential-info-manager"
-	dim "github.com/cloud-barista/cb-spider/cloud-info-manager/driver-info-manager"
-	rim "github.com/cloud-barista/cb-spider/cloud-info-manager/region-info-manager"
+	icon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/connect"
+	ccim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/connection-config-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/credential-info-manager"
+	dim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/driver-info-manager"
+	rim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/region-info-manager"
 
 	//"encoding/json"
 	"fmt"

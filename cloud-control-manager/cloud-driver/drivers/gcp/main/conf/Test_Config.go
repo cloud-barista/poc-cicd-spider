@@ -15,8 +15,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	gcpdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/gcp"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
+	gcpdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/gcp"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
 	"github.com/sirupsen/logrus"
 
 	cblog "github.com/cloud-barista/cb-log"

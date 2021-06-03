@@ -2,7 +2,7 @@
 //           Referred to cb-log
 //
 //      * Cloud-Barista: https://github.com/cloud-barista
-//      * CB-Spider: https://github.com/cloud-barista/cb-spider
+//      * CB-Spider: https://github.com/cloud-barista/poc-cicd-spider
 //      * cb-log: https://github.com/cloud-barista/cb-log
 //
 // load and set config file
@@ -88,7 +88,7 @@ func ReplaceEnvPath(str string) string {
         for _, one := range strList {
                 resultStr = resultStr + one + "/"
         }
-        // ex) "/root/go/src/github.com/cloud-barista/cb-spider/meta_db/dat/"
+        // ex) "/root/go/src/github.com/cloud-barista/poc-cicd-spider/meta_db/dat/"
         resultStr = strings.TrimRight(resultStr, "/")
         resultStr = strings.ReplaceAll(resultStr, "//", "/")
         return resultStr

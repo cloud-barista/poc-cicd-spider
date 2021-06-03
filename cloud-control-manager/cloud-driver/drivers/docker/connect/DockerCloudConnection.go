@@ -14,9 +14,9 @@ import (
 	"context"
 	cblog "github.com/cloud-barista/cb-log"
 	"github.com/docker/docker/client"
-	dkrs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/docker/resources"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	dkrs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/docker/resources"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"github.com/sirupsen/logrus"
 )
 

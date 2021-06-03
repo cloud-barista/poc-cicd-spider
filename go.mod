@@ -1,4 +1,4 @@
-module github.com/cloud-barista/cb-spider
+module github.com/cloud-barista/poc-cicd-spider
 
 go 1.16
 

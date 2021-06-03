@@ -11,11 +11,11 @@ package restruntime
 import (
 	"strconv"
 
-	im "github.com/cloud-barista/cb-spider/cloud-info-manager"
-	ccim "github.com/cloud-barista/cb-spider/cloud-info-manager/connection-config-info-manager"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/credential-info-manager"
-	dim "github.com/cloud-barista/cb-spider/cloud-info-manager/driver-info-manager"
-	rim "github.com/cloud-barista/cb-spider/cloud-info-manager/region-info-manager"
+	im "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager"
+	ccim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/connection-config-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/credential-info-manager"
+	dim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/driver-info-manager"
+	rim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/region-info-manager"
 
 	// REST API (echo)
 	"net/http"

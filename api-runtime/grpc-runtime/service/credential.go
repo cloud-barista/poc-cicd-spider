@@ -11,11 +11,11 @@ package service
 import (
 	"context"
 
-	gc "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/common"
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/logger"
-	pb "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/cbspider"
+	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/logger"
+	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
 
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/credential-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/credential-info-manager"
 )
 
 // ===== [ Constants and Variables ] =====

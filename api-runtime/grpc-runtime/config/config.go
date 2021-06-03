@@ -207,7 +207,7 @@ func ReplaceEnvPath(str string) string {
 	for _, one := range strList {
 		resultStr = resultStr + one + "/"
 	}
-	// ex) "/root/go/src/github.com/cloud-barista/cb-spider/meta_db/dat/"
+	// ex) "/root/go/src/github.com/cloud-barista/poc-cicd-spider/meta_db/dat/"
 	resultStr = strings.TrimRight(resultStr, "/")
 	resultStr = strings.ReplaceAll(resultStr, "//", "/")
 	return resultStr

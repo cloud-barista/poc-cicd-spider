@@ -10,11 +10,11 @@ package adminweb
 
 import (
 	"fmt"
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	dim "github.com/cloud-barista/cb-spider/cloud-info-manager/driver-info-manager"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/credential-info-manager"
-	rim "github.com/cloud-barista/cb-spider/cloud-info-manager/region-info-manager"
-	ccim "github.com/cloud-barista/cb-spider/cloud-info-manager/connection-config-info-manager"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	dim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/driver-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/credential-info-manager"
+	rim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/region-info-manager"
+	ccim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/connection-config-info-manager"
 	"strconv"
 
 	"net/http"

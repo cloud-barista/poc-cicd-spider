@@ -14,7 +14,7 @@ import (
 	"fmt"
 
 	cblog "github.com/cloud-barista/cb-log"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 var vmSpecInfoMap map[string][]*irs.VMSpecInfo

@@ -12,9 +12,9 @@ package restruntime
 import (
 	"fmt"
 
-	cm "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	cmrt "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	cres "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	cm "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	cmrt "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	cres "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 
 	// REST API (echo)
 	"net/http"

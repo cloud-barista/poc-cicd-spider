@@ -14,7 +14,7 @@ import (
 	cblog "github.com/cloud-barista/cb-log"
 
         "google.golang.org/api/sheets/v4"
-        th "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/table-handler"
+        th "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/table-handler"
 )
 
 type StatusInfo struct{

@@ -12,10 +12,10 @@ package connect
 
 import (
 	cblog "github.com/cloud-barista/cb-log"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
-	cirs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/cloudit/resources"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/client"
+	cirs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/cloudit/resources"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"github.com/sirupsen/logrus"
 )
 

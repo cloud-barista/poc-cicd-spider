@@ -18,9 +18,9 @@ import (
         "google.golang.org/grpc"
 
 	cblog "github.com/cloud-barista/cb-log"
-        common "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/common"
-	th "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/table-handler"
-	kv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+        common "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/common"
+	th "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/table-handler"
+	kv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 // Loop:

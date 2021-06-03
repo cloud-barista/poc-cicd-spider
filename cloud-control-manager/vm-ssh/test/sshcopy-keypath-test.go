@@ -8,7 +8,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/vm-ssh"
 )
 
 func main() {

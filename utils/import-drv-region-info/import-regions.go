@@ -13,8 +13,8 @@ import (
         "github.com/cloud-barista/cb-store/config"
 
 	icbs "github.com/cloud-barista/cb-store/interfaces"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager"
-	rim "github.com/cloud-barista/cb-spider/cloud-info-manager/region-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager"
+	rim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/region-info-manager"
 
 	"encoding/json"
 	"io/ioutil"

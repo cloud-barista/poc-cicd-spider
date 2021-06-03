@@ -13,7 +13,7 @@ package resources
 import (
         _ "github.com/sirupsen/logrus"
         cblog "github.com/cloud-barista/cb-log"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"fmt"
 )
 

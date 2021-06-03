@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/cloud-barista/cb-store/config"
-	iidm "github.com/cloud-barista/cb-spider/cloud-control-manager/iid-manager"
+	iidm "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/iid-manager"
 )
 
 var count = 10

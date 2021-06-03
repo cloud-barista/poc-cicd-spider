@@ -17,8 +17,8 @@ import (
 
 	"github.com/chyeh/pubip"
 
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	aw "github.com/cloud-barista/cb-spider/api-runtime/rest-runtime/admin-web"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	aw "github.com/cloud-barista/poc-cicd-spider/api-runtime/rest-runtime/admin-web"
 	"github.com/cloud-barista/cb-store/config"
 	"github.com/sirupsen/logrus"
 

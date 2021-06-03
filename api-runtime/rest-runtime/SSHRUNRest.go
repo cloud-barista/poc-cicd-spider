@@ -9,7 +9,7 @@
 package restruntime
 
 import (
-	sshrun "github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
+	sshrun "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/vm-ssh"
 
 	"strings"
 	// REST API (echo)

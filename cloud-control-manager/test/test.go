@@ -9,7 +9,7 @@
 package main
 
 import (
-	ccm "github.com/cloud-barista/cb-spider/cloud-control-manager"
+	ccm "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager"
 
 	"fmt"
 )

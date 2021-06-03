@@ -10,11 +10,11 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 
-	osdrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/openstack"
-	_ "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/openstack/connect"
-	_ "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/openstack/resources"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	osdrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/openstack"
+	_ "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/openstack/connect"
+	_ "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/openstack/resources"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 )
 
 var cblogger *logrus.Logger

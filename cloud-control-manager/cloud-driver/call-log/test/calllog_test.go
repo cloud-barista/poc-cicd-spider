@@ -2,7 +2,7 @@
 //           Referred to cb-log
 //
 //      * Cloud-Barista: https://github.com/cloud-barista
-//      * CB-Spider: https://github.com/cloud-barista/cb-spider
+//      * CB-Spider: https://github.com/cloud-barista/poc-cicd-spider
 //      * cb-log: https://github.com/cloud-barista/cb-log
 //
 // load and set config file
@@ -16,7 +16,7 @@ package main
 
 import (
 	"github.com/cloud-barista/cb-log"
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
 
 	"time"
 	"testing"

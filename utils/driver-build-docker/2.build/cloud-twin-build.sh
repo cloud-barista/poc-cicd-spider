@@ -2,7 +2,7 @@
 
 # Build Scripts to build drivers with plugin mode.
 # The driver repos can be other repos.
-# cf) https://github.com/cloud-barista/cb-spider/issues/343
+# cf) https://github.com/cloud-barista/poc-cicd-spider/issues/343
 #
 # The CB-Spider is a sub-Framework of the Cloud-Barista Multi-Cloud Project.
 # The CB-Spider Mission is to connect all the clouds with a single interface.

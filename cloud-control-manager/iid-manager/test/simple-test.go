@@ -12,8 +12,8 @@ import (
 	"fmt"
 
 	"github.com/cloud-barista/cb-store/config"
-	rsid "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
-	iidm "github.com/cloud-barista/cb-spider/cloud-control-manager/iid-manager"
+	rsid "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	iidm "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/iid-manager"
 )
 func main() {
 

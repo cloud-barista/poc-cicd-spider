@@ -14,11 +14,11 @@ import (
 	"io"
 	"time"
 
-	gc "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/common"
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/config"
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/logger"
-	pb "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/cbspider"
-	"github.com/cloud-barista/cb-spider/interface/api/request"
+	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/config"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/logger"
+	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
+	"github.com/cloud-barista/poc-cicd-spider/interface/api/request"
 
 	"google.golang.org/grpc"
 )

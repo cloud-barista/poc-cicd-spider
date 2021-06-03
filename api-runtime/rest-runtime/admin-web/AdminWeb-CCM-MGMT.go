@@ -10,7 +10,7 @@ package adminweb
 
 import (
 	"fmt"
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
 
 	"strconv"
 	"net/http"

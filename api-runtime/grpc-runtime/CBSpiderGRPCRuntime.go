@@ -14,12 +14,12 @@ import (
 	"net"
 	"os"
 
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	gc "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/common"
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/config"
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/logger"
-	grpc_service "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/service"
-	pb "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/cbspider"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/config"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/logger"
+	grpc_service "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/service"
+	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
 
 	"google.golang.org/grpc/reflection"
 )

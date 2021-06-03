@@ -11,7 +11,7 @@ package childkat
 import (
 	"context"
 	"fmt"
-        common "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/common"
+        common "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/common"
 )
 
 var MyServerID string

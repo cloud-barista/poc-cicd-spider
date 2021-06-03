@@ -9,7 +9,7 @@ import (
 	"github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common/profile"
 	cvm "github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cvm/v20170312"
 
-	testconf "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/tencent/main/conf"
+	testconf "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/tencent/main/conf"
 )
 
 func parsePort() {

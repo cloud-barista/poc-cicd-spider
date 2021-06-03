@@ -13,13 +13,13 @@ package main
 import (
 	"fmt"
 
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/sirupsen/logrus"
 
 	cblog "github.com/cloud-barista/cb-log"
 	//testconf "./conf"
-	testconf "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/gcp/main/conf"
+	testconf "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/gcp/main/conf"
 )
 
 var cblogger *logrus.Logger

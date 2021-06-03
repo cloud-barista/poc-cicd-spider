@@ -14,7 +14,7 @@ import (
 	"strings"
 
 	"github.com/sirupsen/logrus"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"github.com/cloud-barista/cb-store/config"
 )
 

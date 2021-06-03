@@ -13,7 +13,7 @@ import (
 
 	"github.com/cloud-barista/cb-store/config"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/credential-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/credential-info-manager"
 )
 func main() {
 

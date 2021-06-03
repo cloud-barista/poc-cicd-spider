@@ -2,7 +2,7 @@
 //           Referred to cb-log
 //
 //      * Cloud-Barista: https://github.com/cloud-barista
-//      * CB-Spider: https://github.com/cloud-barista/cb-spider
+//      * CB-Spider: https://github.com/cloud-barista/poc-cicd-spider
 //      * cb-log: https://github.com/cloud-barista/cb-log
 //
 // load and set config file
@@ -22,7 +22,7 @@ import (
 	"time"
 
 	"github.com/chyeh/pubip"
-	calllogformatter "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log/formatter"
+	calllogformatter "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log/formatter"
 	"github.com/sirupsen/logrus"
 	"github.com/snowzach/rotatefilehook"
 )

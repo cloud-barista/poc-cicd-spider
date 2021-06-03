@@ -12,8 +12,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	gc "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/common"
-	"github.com/cloud-barista/cb-spider/interface/api"
+	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
+	"github.com/cloud-barista/poc-cicd-spider/interface/api"
 )
 
 // ===== [ Constants and Variables ] =====

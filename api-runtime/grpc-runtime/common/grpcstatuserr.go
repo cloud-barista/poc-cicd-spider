@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/logger"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/logger"
 )
 
 // ===== [ Constants and Variables ] =====

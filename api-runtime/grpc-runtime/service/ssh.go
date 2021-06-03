@@ -12,11 +12,11 @@ import (
 	"context"
 	"strings"
 
-	gc "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/common"
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/logger"
-	pb "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/cbspider"
+	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/logger"
+	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
 
-	sshrun "github.com/cloud-barista/cb-spider/cloud-control-manager/vm-ssh"
+	sshrun "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/vm-ssh"
 )
 
 // ===== [ Constants and Variables ] =====

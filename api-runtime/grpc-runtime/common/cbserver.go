@@ -18,10 +18,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/interceptors/jaegertracer"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/interceptors/jaegertracer"
 
-	grpc_accesslog "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/interceptors/accesslog"
-	grpc_authjwt "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/interceptors/authjwt"
+	grpc_accesslog "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/interceptors/accesslog"
+	grpc_authjwt "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/interceptors/authjwt"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
@@ -32,7 +32,7 @@ import (
 
 	opentracing "github.com/opentracing/opentracing-go"
 
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/config"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/config"
 )
 
 // ===== [ Constants and Variables ] =====

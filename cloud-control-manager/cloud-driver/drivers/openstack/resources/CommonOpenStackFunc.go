@@ -18,7 +18,7 @@ import (
 	"github.com/gophercloud/gophercloud/pagination"
 	"github.com/sirupsen/logrus"
 
-	call "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/call-log"
+	call "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/call-log"
 )
 
 const (

@@ -14,9 +14,9 @@ import (
 	"context"
 
 	cblog "github.com/cloud-barista/cb-log"
-	gcprs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/gcp/resources"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	gcprs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/gcp/resources"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"github.com/sirupsen/logrus"
 	compute "google.golang.org/api/compute/v1"
 )

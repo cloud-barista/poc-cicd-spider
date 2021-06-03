@@ -13,7 +13,7 @@ package main
 import (
 	"fmt"
 
-	irs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	irs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/sirupsen/logrus"
 
@@ -22,8 +22,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	alidrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/alibaba"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
+	alidrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/alibaba"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
 	"gopkg.in/yaml.v3"
 )
 

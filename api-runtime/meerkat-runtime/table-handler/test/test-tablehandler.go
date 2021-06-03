@@ -4,7 +4,7 @@ import (
         "fmt"
 	"log"
 
-        th "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/table-handler")
+        th "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/table-handler")
 
 
 func main() {

@@ -6,7 +6,7 @@ package cbspider
 import (
 	context "context"
 	fmt "fmt"
-	_ "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/gogoproto"
+	_ "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/gogoproto"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

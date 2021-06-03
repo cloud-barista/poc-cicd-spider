@@ -11,7 +11,7 @@ package request
 import (
 	"time"
 
-	pb "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/cbspider"
+	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
 )
 
 // ===== [ Constants and Variables ] =====

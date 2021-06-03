@@ -12,7 +12,7 @@ import (
 	"fmt"
 
 	"github.com/cloud-barista/cb-store/config"
-	cim "github.com/cloud-barista/cb-spider/cloud-info-manager/connection-config-info-manager"
+	cim "github.com/cloud-barista/poc-cicd-spider/cloud-info-manager/connection-config-info-manager"
 )
 func main() {
 

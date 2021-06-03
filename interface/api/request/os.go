@@ -11,8 +11,8 @@ package request
 import (
 	"context"
 
-	gc "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/common"
-	pb "github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/stub/cbspider"
+	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
+	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
 )
 
 // ===== [ Constants and Variables ] =====

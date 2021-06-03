@@ -19,10 +19,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	gcpcon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/gcp/connect"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
+	gcpcon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/gcp/connect"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
 
-	icon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/connect"
+	icon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/connect"
 
 	o2 "golang.org/x/oauth2"
 	goo "golang.org/x/oauth2/google"

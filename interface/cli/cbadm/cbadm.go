@@ -11,7 +11,7 @@ package main
 import (
 	"log"
 
-	"github.com/cloud-barista/cb-spider/interface/cli/cbadm/cmd"
+	"github.com/cloud-barista/poc-cicd-spider/interface/cli/cbadm/cmd"
 )
 
 // ===== [ Constants and Variables ] =====

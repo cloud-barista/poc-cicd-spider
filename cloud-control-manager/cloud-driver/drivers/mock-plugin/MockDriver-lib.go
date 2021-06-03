@@ -16,10 +16,10 @@ import (
 	cblog "github.com/cloud-barista/cb-log"
 	"github.com/sirupsen/logrus"
 
-	mkcon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/mock/connect"
-	mkrs "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/drivers/mock/resources"
-	idrv "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces"
-	icon "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/connect"
+	mkcon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/mock/connect"
+	mkrs "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/drivers/mock/resources"
+	idrv "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces"
+	icon "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/connect"
 )
 
 type MockDriver struct{}

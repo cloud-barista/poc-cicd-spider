@@ -22,11 +22,11 @@ import (
         "google.golang.org/grpc/reflection"
 
 	cblog "github.com/cloud-barista/cb-log"
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
-	"github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/momkat"
-        common "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/common"
-        childkat "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/childkat"
-	th "github.com/cloud-barista/cb-spider/api-runtime/meerkat-runtime/table-handler"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/momkat"
+        common "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/common"
+        childkat "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/childkat"
+	th "github.com/cloud-barista/poc-cicd-spider/api-runtime/meerkat-runtime/table-handler"
 )
 
 var myServerID string

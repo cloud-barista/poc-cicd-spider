@@ -10,8 +10,8 @@
 package cmd
 
 import (
-	"github.com/cloud-barista/cb-spider/api-runtime/grpc-runtime/config"
-	"github.com/cloud-barista/cb-spider/interface/api"
+	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/config"
+	"github.com/cloud-barista/poc-cicd-spider/interface/api"
 
 	"github.com/spf13/cobra"
 )

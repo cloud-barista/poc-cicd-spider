@@ -13,8 +13,8 @@ import (
 	"bytes"
         "github.com/cloud-barista/cb-store/config"
         "github.com/sirupsen/logrus"
-	cres "github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
-	cr "github.com/cloud-barista/cb-spider/api-runtime/common-runtime"
+	cres "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	cr "github.com/cloud-barista/poc-cicd-spider/api-runtime/common-runtime"
 
 	"net/http"
 	"io/ioutil"

@@ -14,7 +14,7 @@ import (
 
 	"github.com/cloud-barista/cb-store/utils"
 	"github.com/cloud-barista/cb-store"
-	"github.com/cloud-barista/cb-spider/cloud-control-manager/cloud-driver/interfaces/resources"
+	"github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/cloud-driver/interfaces/resources"
 	icbs "github.com/cloud-barista/cb-store/interfaces"
 )
 

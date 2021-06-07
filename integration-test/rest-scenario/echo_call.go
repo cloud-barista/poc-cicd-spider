@@ -89,7 +89,7 @@ func Call(m map[string]interface{}, name string, params ...interface{}) (result 
 	return
 }
 
-func EchoGetTest(t *testing.T, tc TestCases) (string, error) {
+func EchoTest(t *testing.T, tc TestCases) (string, error) {
 
 	var (
 		body string = ""
@@ -100,89 +100,9 @@ func EchoGetTest(t *testing.T, tc TestCases) (string, error) {
 		e := echo.New()
 		var req *http.Request = nil
 		if tc.givenPostData != "" {
-			req = httptest.NewRequest(http.MethodGet, "/"+tc.givenQueryParams, bytes.NewBuffer([]byte(tc.givenPostData)))
+			req = httptest.NewRequest(tc.httpMethod, "/"+tc.givenQueryParams, bytes.NewBuffer([]byte(tc.givenPostData)))
 		} else {
-			req = httptest.NewRequest(http.MethodGet, "/"+tc.givenQueryParams, nil)
-		}
-		req.Header.Set("Content-Type", "application/json")
-		rec := httptest.NewRecorder()
-		c := e.NewContext(req, rec)
-		c.SetPath(tc.whenURL)
-		if tc.givenParaNames != nil {
-			c.SetParamNames(tc.givenParaNames...)
-			c.SetParamValues(tc.givenParaVals...)
-		}
-
-		_, err = Call(funcs, tc.echoFunc, c)
-		if assert.NoError(t, err) {
-			assert.Equal(t, tc.expectStatus, rec.Code)
-			body = rec.Body.String()
-			fmt.Printf("===== body : %s\n", body)
-			if tc.expectBodyStartsWith != "" {
-				assert.True(t, strings.HasPrefix(body, tc.expectBodyStartsWith))
-			} else {
-				assert.Equal(t, "", body)
-			}
-		}
-	})
-
-	return body, err
-}
-
-func EchoPostTest(t *testing.T, tc TestCases) (string, error) {
-
-	var (
-		body string = ""
-		err  error  = nil
-	)
-
-	t.Run(tc.name, func(t *testing.T) {
-		e := echo.New()
-		var req *http.Request = nil
-		if tc.givenPostData != "" {
-			req = httptest.NewRequest(http.MethodPost, "/"+tc.givenQueryParams, bytes.NewBuffer([]byte(tc.givenPostData)))
-		} else {
-			req = httptest.NewRequest(http.MethodPost, "/"+tc.givenQueryParams, nil)
-		}
-		req.Header.Set("Content-Type", "application/json")
-		rec := httptest.NewRecorder()
-		c := e.NewContext(req, rec)
-		c.SetPath(tc.whenURL)
-		if tc.givenParaNames != nil {
-			c.SetParamNames(tc.givenParaNames...)
-			c.SetParamValues(tc.givenParaVals...)
-		}
-
-		_, err = Call(funcs, tc.echoFunc, c)
-		if assert.NoError(t, err) {
-			assert.Equal(t, tc.expectStatus, rec.Code)
-			body = rec.Body.String()
-			fmt.Printf("===== body : %s\n", body)
-			if tc.expectBodyStartsWith != "" {
-				assert.True(t, strings.HasPrefix(body, tc.expectBodyStartsWith))
-			} else {
-				assert.Equal(t, "", body)
-			}
-		}
-	})
-
-	return body, err
-}
-
-func EchoDeleteTest(t *testing.T, tc TestCases) (string, error) {
-
-	var (
-		body string = ""
-		err  error  = nil
-	)
-
-	t.Run(tc.name, func(t *testing.T) {
-		e := echo.New()
-		var req *http.Request = nil
-		if tc.givenPostData != "" {
-			req = httptest.NewRequest(http.MethodDelete, "/"+tc.givenQueryParams, bytes.NewBuffer([]byte(tc.givenPostData)))
-		} else {
-			req = httptest.NewRequest(http.MethodDelete, "/"+tc.givenQueryParams, nil)
+			req = httptest.NewRequest(tc.httpMethod, "/"+tc.givenQueryParams, nil)
 		}
 		req.Header.Set("Content-Type", "application/json")
 		rec := httptest.NewRecorder()

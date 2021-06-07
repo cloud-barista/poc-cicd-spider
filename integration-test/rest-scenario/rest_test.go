@@ -12,6 +12,7 @@ func TestRestApi(t *testing.T) {
 		tc := TestCases{
 			name:                 "list cloud os",
 			echoFunc:             "ListCloudOS",
+			httpMethod:           http.MethodGet,
 			whenURL:              "/spider/cloudos",
 			givenQueryParams:     "",
 			givenParaNames:       nil,
@@ -20,11 +21,12 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `{"cloudos":[`,
 		}
-		EchoGetTest(t, tc)
+		EchoTest(t, tc)
 
 		tc = TestCases{
 			name:                 "register cloud driver",
 			echoFunc:             "RegisterCloudDriver",
+			httpMethod:           http.MethodPost,
 			whenURL:              "/spider/driver",
 			givenQueryParams:     "",
 			givenParaNames:       nil,
@@ -33,11 +35,12 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `{"DriverName":"mock-unit-driver01"`,
 		}
-		EchoPostTest(t, tc)
+		EchoTest(t, tc)
 
 		tc = TestCases{
 			name:                 "register credential",
 			echoFunc:             "RegisterCredential",
+			httpMethod:           http.MethodPost,
 			whenURL:              "/spider/credential",
 			givenQueryParams:     "",
 			givenParaNames:       nil,
@@ -46,11 +49,12 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `{"CredentialName":"mock-unit-credential01"`,
 		}
-		EchoPostTest(t, tc)
+		EchoTest(t, tc)
 
 		tc = TestCases{
 			name:                 "register region",
 			echoFunc:             "RegisterRegion",
+			httpMethod:           http.MethodPost,
 			whenURL:              "/spider/region",
 			givenQueryParams:     "",
 			givenParaNames:       nil,
@@ -59,11 +63,12 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `{"RegionName":"mock-unit-region01"`,
 		}
-		EchoPostTest(t, tc)
+		EchoTest(t, tc)
 
 		tc = TestCases{
 			name:                 "create connection config",
 			echoFunc:             "CreateConnectionConfig",
+			httpMethod:           http.MethodPost,
 			whenURL:              "/spider/connectionconfig",
 			givenQueryParams:     "",
 			givenParaNames:       nil,
@@ -72,7 +77,7 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `{"ConfigName":"mock-unit-config01"`,
 		}
-		EchoPostTest(t, tc)
+		EchoTest(t, tc)
 
 		tearDownForRest()
 	})
@@ -83,6 +88,7 @@ func TestRestApi(t *testing.T) {
 		tc := TestCases{
 			name:           "ssh run",
 			echoFunc:       "SshRun",
+			httpMethod:     http.MethodPost,
 			whenURL:        "/spider/sshrun",
 			givenParaNames: nil,
 			givenParaVals:  nil,
@@ -95,7 +101,7 @@ func TestRestApi(t *testing.T) {
 			expectStatus:         http.StatusOK,
 			expectBodyStartsWith: `"hostname success"`,
 		}
-		EchoPostTest(t, tc)
+		EchoTest(t, tc)
 
 		tearDownForRest()
 	})

@@ -12,6 +12,7 @@ import (
 type TestCases struct {
 	name                 string
 	echoFunc             string
+	httpMethod           string
 	whenURL              string
 	givenQueryParams     string
 	givenParaNames       []string

@@ -25,6 +25,7 @@ import (
 
 type TestCases struct {
 	name                string
+	instance            interface{}
 	method              string
 	args                []interface{}
 	expectResStartsWith string
@@ -32,8 +33,8 @@ type TestCases struct {
 
 var (
 	holdStdout *os.File     = nil
-	cim        *api.CIMApi  = nil
-	ccm        *api.CCMApi  = nil
+	cimApi     *api.CIMApi  = nil
+	ccmApi     *api.CCMApi  = nil
 	gs         *grpc.Server = nil
 )
 
@@ -93,26 +94,26 @@ func setUpForGrpc() {
 	/**
 	** Spider Grpc API Setup
 	**/
-	cim = api.NewCloudInfoManager()
+	cimApi = api.NewCloudInfoManager()
 
-	err = cim.SetConfigPath("../conf/grpc_conf.yaml")
+	err = cimApi.SetConfigPath("../conf/grpc_conf.yaml")
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	err = cim.Open()
+	err = cimApi.Open()
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	ccm = api.NewCloudResourceHandler()
+	ccmApi = api.NewCloudResourceHandler()
 
-	err = ccm.SetConfigPath("../conf/grpc_conf.yaml")
+	err = ccmApi.SetConfigPath("../conf/grpc_conf.yaml")
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	err = ccm.Open()
+	err = ccmApi.Open()
 	if err != nil {
 		logger.Fatal(err)
 	}
@@ -126,8 +127,8 @@ func setUpForGrpc() {
 }
 
 func tearDownForGrpc() {
-	cim.Close()
-	ccm.Close()
+	cimApi.Close()
+	ccmApi.Close()
 	gs.Stop()
 
 	os.RemoveAll("../meta_db")

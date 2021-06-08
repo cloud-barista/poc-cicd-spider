@@ -9,7 +9,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cloud-barista/poc-cicd-spider/interface/api"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -40,7 +39,7 @@ func Call(any interface{}, name string, params []interface{}) (result string, er
 	return
 }
 
-func CIMMethodTest(t *testing.T, cim *api.CIMApi, tc TestCases) (string, error) {
+func MethodTest(t *testing.T, tc TestCases) (string, error) {
 
 	var (
 		res string = ""
@@ -49,7 +48,7 @@ func CIMMethodTest(t *testing.T, cim *api.CIMApi, tc TestCases) (string, error) 
 
 	t.Run(tc.name, func(t *testing.T) {
 
-		res, err = Call(cim, tc.method, tc.args)
+		res, err = Call(tc.instance, tc.method, tc.args)
 		if assert.NoError(t, err) {
 			fmt.Printf("===== result : %s\n", res)
 			if tc.expectResStartsWith != "" {
@@ -62,27 +61,4 @@ func CIMMethodTest(t *testing.T, cim *api.CIMApi, tc TestCases) (string, error) 
 
 	return res, err
 
-}
-
-func CCMMethodTest(t *testing.T, ccm *api.CCMApi, tc TestCases) (string, error) {
-
-	var (
-		res string = ""
-		err error  = nil
-	)
-
-	t.Run(tc.name, func(t *testing.T) {
-
-		res, err = Call(ccm, tc.method, tc.args)
-		if assert.NoError(t, err) {
-			fmt.Printf("=====res : %s\n", res)
-			if tc.expectResStartsWith != "" {
-				assert.True(t, strings.HasPrefix(res, tc.expectResStartsWith))
-			} else {
-				assert.Equal(t, "", res)
-			}
-		}
-	})
-
-	return res, err
 }

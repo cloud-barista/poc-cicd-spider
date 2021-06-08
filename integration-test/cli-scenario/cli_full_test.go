@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestCli(t *testing.T) {
+func TestCliFull(t *testing.T) {
 	t.Run("command full test for mock driver", func(t *testing.T) {
 		setUpForCli()
 

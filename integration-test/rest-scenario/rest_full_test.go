@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestRestApi(t *testing.T) {
+func TestRestFull(t *testing.T) {
 	t.Run("rest api full test for mock driver", func(t *testing.T) {
 		setUpForRest()
 

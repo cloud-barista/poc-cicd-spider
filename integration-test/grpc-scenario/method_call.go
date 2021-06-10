@@ -26,12 +26,14 @@ func Call(any interface{}, name string, params []interface{}) (result string, er
 	retVal := f.Call(in)
 	result = retVal[0].String()
 
-	dst := new(bytes.Buffer)
-	err = json.Compact(dst, []byte(result))
-	if err != nil {
-		return
+	if strings.HasPrefix(result, "{") {
+		dst := new(bytes.Buffer)
+		err = json.Compact(dst, []byte(result))
+		if err != nil {
+			return
+		}
+		result = dst.String()
 	}
-	result = dst.String()
 
 	if retVal[1].Interface() != nil {
 		err = retVal[1].Interface().(error)

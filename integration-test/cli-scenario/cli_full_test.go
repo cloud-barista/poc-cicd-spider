@@ -6,7 +6,7 @@ import (
 
 func TestCliFull(t *testing.T) {
 	t.Run("command full test for mock driver", func(t *testing.T) {
-		setUpForCli()
+		SetUpForCli()
 
 		tc := TestCases{
 			name:                "list cloud os",
@@ -73,6 +73,6 @@ func TestCliFull(t *testing.T) {
 		}
 		SpiderCmdTest(t, tc)
 
-		tearDownForCli()
+		TearDownForCli()
 	})
 }

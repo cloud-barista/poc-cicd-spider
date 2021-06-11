@@ -35,7 +35,7 @@ func init() {
 	logrus.SetLevel(logrus.ErrorLevel)
 }
 
-func setUpForCli() {
+func SetUpForCli() {
 
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
@@ -86,7 +86,7 @@ func setUpForCli() {
 	time.Sleep(time.Second * 2)
 }
 
-func tearDownForCli() {
+func TearDownForCli() {
 	gs.Stop()
 
 	os.RemoveAll("../meta_db")

@@ -7,7 +7,7 @@ import (
 
 func TestRestFull(t *testing.T) {
 	t.Run("rest api full test for mock driver", func(t *testing.T) {
-		setUpForRest()
+		SetUpForRest()
 
 		tc := TestCases{
 			name:                 "list cloud os",
@@ -79,11 +79,11 @@ func TestRestFull(t *testing.T) {
 		}
 		EchoTest(t, tc)
 
-		tearDownForRest()
+		TearDownForRest()
 	})
 
 	t.Run("sshrun test", func(t *testing.T) {
-		setUpForRest()
+		SetUpForRest()
 
 		tc := TestCases{
 			name:           "ssh run",
@@ -103,6 +103,6 @@ func TestRestFull(t *testing.T) {
 		}
 		EchoTest(t, tc)
 
-		tearDownForRest()
+		TearDownForRest()
 	})
 }

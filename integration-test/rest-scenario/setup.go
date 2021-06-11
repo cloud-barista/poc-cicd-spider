@@ -30,7 +30,7 @@ func init() {
 	logrus.SetLevel(logrus.ErrorLevel)
 }
 
-func setUpForRest() {
+func SetUpForRest() {
 
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
@@ -42,7 +42,7 @@ func setUpForRest() {
 	})
 }
 
-func tearDownForRest() {
+func TearDownForRest() {
 	os.RemoveAll("../meta_db")
 
 	os.Stdout = holdStdout

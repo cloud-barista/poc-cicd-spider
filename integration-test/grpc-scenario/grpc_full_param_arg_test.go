@@ -8,7 +8,7 @@ import (
 
 func TestGrpcFullParamArg(t *testing.T) {
 	t.Run("grpc api full test for mock driver by parameter args style", func(t *testing.T) {
-		setUpForGrpc()
+		SetUpForGrpc()
 
 		tc := TestCases{
 			name:     "register cloud driver",
@@ -92,7 +92,7 @@ func TestGrpcFullParamArg(t *testing.T) {
 		}
 		MethodTest(t, tc)
 
-		tearDownForGrpc()
+		TearDownForGrpc()
 	})
 
 }

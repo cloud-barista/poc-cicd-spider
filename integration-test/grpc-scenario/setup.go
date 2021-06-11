@@ -42,7 +42,7 @@ func init() {
 	logrus.SetLevel(logrus.ErrorLevel)
 }
 
-func setUpForGrpc() {
+func SetUpForGrpc() {
 
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
@@ -126,7 +126,7 @@ func setUpForGrpc() {
 	})
 }
 
-func tearDownForGrpc() {
+func TearDownForGrpc() {
 	cimApi.Close()
 	ccmApi.Close()
 	gs.Stop()

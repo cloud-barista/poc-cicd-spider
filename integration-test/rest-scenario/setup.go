@@ -10,16 +10,16 @@ import (
 )
 
 type TestCases struct {
-	name                 string
-	echoFunc             string
-	httpMethod           string
-	whenURL              string
-	givenQueryParams     string
-	givenParaNames       []string
-	givenParaVals        []string
-	givenPostData        string
-	expectStatus         int
-	expectBodyStartsWith string
+	Name                 string
+	EchoFunc             string
+	HttpMethod           string
+	WhenURL              string
+	GivenQueryParams     string
+	GivenParaNames       []string
+	GivenParaVals        []string
+	GivenPostData        string
+	ExpectStatus         int
+	ExpectBodyStartsWith string
 }
 
 var (

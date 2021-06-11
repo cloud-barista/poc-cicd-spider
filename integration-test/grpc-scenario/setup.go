@@ -24,17 +24,17 @@ import (
 )
 
 type TestCases struct {
-	name                string
-	instance            interface{}
-	method              string
-	args                []interface{}
-	expectResStartsWith string
+	Name                string
+	Instance            interface{}
+	Method              string
+	Args                []interface{}
+	ExpectResStartsWith string
 }
 
 var (
 	holdStdout *os.File     = nil
-	cimApi     *api.CIMApi  = nil
-	ccmApi     *api.CCMApi  = nil
+	CimApi     *api.CIMApi  = nil
+	CcmApi     *api.CCMApi  = nil
 	gs         *grpc.Server = nil
 )
 
@@ -94,26 +94,26 @@ func SetUpForGrpc() {
 	/**
 	** Spider Grpc API Setup
 	**/
-	cimApi = api.NewCloudInfoManager()
+	CimApi = api.NewCloudInfoManager()
 
-	err = cimApi.SetConfigPath("../conf/grpc_conf.yaml")
+	err = CimApi.SetConfigPath("../conf/grpc_conf.yaml")
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	err = cimApi.Open()
+	err = CimApi.Open()
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	ccmApi = api.NewCloudResourceHandler()
+	CcmApi = api.NewCloudResourceHandler()
 
-	err = ccmApi.SetConfigPath("../conf/grpc_conf.yaml")
+	err = CcmApi.SetConfigPath("../conf/grpc_conf.yaml")
 	if err != nil {
 		logger.Fatal(err)
 	}
 
-	err = ccmApi.Open()
+	err = CcmApi.Open()
 	if err != nil {
 		logger.Fatal(err)
 	}
@@ -127,8 +127,8 @@ func SetUpForGrpc() {
 }
 
 func TearDownForGrpc() {
-	cimApi.Close()
-	ccmApi.Close()
+	CimApi.Close()
+	CcmApi.Close()
 	gs.Stop()
 
 	os.RemoveAll("../meta_db")

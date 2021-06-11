@@ -11,25 +11,25 @@ func TestGrpcFullParamArg(t *testing.T) {
 		SetUpForGrpc()
 
 		tc := TestCases{
-			name:     "register cloud driver",
-			instance: cimApi,
-			method:   "CreateCloudDriverByParam",
-			args: []interface{}{
+			Name:     "register cloud driver",
+			Instance: CimApi,
+			Method:   "CreateCloudDriverByParam",
+			Args: []interface{}{
 				&api.CloudDriverReq{
 					DriverName:        "mock-unit-driver01",
 					ProviderName:      "MOCK",
 					DriverLibFileName: "mock-driver-v1.0.so",
 				},
 			},
-			expectResStartsWith: `{"DriverName":"mock-unit-driver01"`,
+			ExpectResStartsWith: `{"DriverName":"mock-unit-driver01"`,
 		}
 		MethodTest(t, tc)
 
 		tc = TestCases{
-			name:     "register credential",
-			instance: cimApi,
-			method:   "CreateCredentialByParam",
-			args: []interface{}{
+			Name:     "register credential",
+			Instance: CimApi,
+			Method:   "CreateCredentialByParam",
+			Args: []interface{}{
 				&api.CredentialReq{
 					CredentialName: "mock-unit-credential01",
 					ProviderName:   "MOCK",
@@ -38,15 +38,15 @@ func TestGrpcFullParamArg(t *testing.T) {
 					},
 				},
 			},
-			expectResStartsWith: `{"CredentialName":"mock-unit-credential01"`,
+			ExpectResStartsWith: `{"CredentialName":"mock-unit-credential01"`,
 		}
 		MethodTest(t, tc)
 
 		tc = TestCases{
-			name:     "register region",
-			instance: cimApi,
-			method:   "CreateRegionByParam",
-			args: []interface{}{
+			Name:     "register region",
+			Instance: CimApi,
+			Method:   "CreateRegionByParam",
+			Args: []interface{}{
 				&api.RegionReq{
 					RegionName:   "mock-unit-region01",
 					ProviderName: "MOCK",
@@ -55,15 +55,15 @@ func TestGrpcFullParamArg(t *testing.T) {
 					},
 				},
 			},
-			expectResStartsWith: `{"RegionName":"mock-unit-region01"`,
+			ExpectResStartsWith: `{"RegionName":"mock-unit-region01"`,
 		}
 		MethodTest(t, tc)
 
 		tc = TestCases{
-			name:     "create connection config",
-			instance: cimApi,
-			method:   "CreateConnectionConfigByParam",
-			args: []interface{}{
+			Name:     "create connection config",
+			Instance: CimApi,
+			Method:   "CreateConnectionConfigByParam",
+			Args: []interface{}{
 				&api.ConnectionConfigReq{
 					ConfigName:     "mock-unit-config01",
 					ProviderName:   "MOCK",
@@ -72,15 +72,15 @@ func TestGrpcFullParamArg(t *testing.T) {
 					RegionName:     "mock-unit-region01",
 				},
 			},
-			expectResStartsWith: `{"ConfigName":"mock-unit-config01"`,
+			ExpectResStartsWith: `{"ConfigName":"mock-unit-config01"`,
 		}
 		MethodTest(t, tc)
 
 		tc = TestCases{
-			name:     "ssh run",
-			instance: ccmApi,
-			method:   "SSHRunByParam",
-			args: []interface{}{
+			Name:     "ssh run",
+			Instance: CcmApi,
+			Method:   "SSHRunByParam",
+			Args: []interface{}{
 				&api.SSHRUNReq{
 					PrivateKey: []string{},
 					UserName:   "root",
@@ -88,7 +88,7 @@ func TestGrpcFullParamArg(t *testing.T) {
 					Command:    "hostname",
 				},
 			},
-			expectResStartsWith: `{"Result":"hostname success"}`,
+			ExpectResStartsWith: `{"Result":"hostname success"}`,
 		}
 		MethodTest(t, tc)
 

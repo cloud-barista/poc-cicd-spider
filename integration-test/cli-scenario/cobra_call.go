@@ -20,12 +20,12 @@ func SpiderCmdTest(t *testing.T, tc TestCases) (string, error) {
 		err error  = nil
 	)
 
-	t.Run(tc.name, func(t *testing.T) {
+	t.Run(tc.Name, func(t *testing.T) {
 
 		spiderCmd := cmd.NewRootCmd()
 		b := bytes.NewBufferString("")
 		spiderCmd.SetOut(b)
-		spiderCmd.SetArgs(tc.cmdArgs)
+		spiderCmd.SetArgs(tc.CmdArgs)
 		spiderCmd.Execute()
 
 		out, err := ioutil.ReadAll(b)
@@ -41,17 +41,17 @@ func SpiderCmdTest(t *testing.T, tc TestCases) (string, error) {
 				res = string(out)
 			}
 
-			if tc.expectResStartsWith != "" {
-				if !assert.True(t, strings.HasPrefix(res, tc.expectResStartsWith)) {
+			if tc.ExpectResStartsWith != "" {
+				if !assert.True(t, strings.HasPrefix(res, tc.ExpectResStartsWith)) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"                  Expected Start With: %s\n"+
-						"                  Actual  : %s", tc.expectResStartsWith, res)
+						"                  Actual  : %s", tc.ExpectResStartsWith, res)
 				}
 			} else {
 				if !assert.Equal(t, "", res) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"      Expected Start With: %s\n"+
-						"      Actual  : %s", tc.expectResStartsWith, res)
+						"      Actual  : %s", tc.ExpectResStartsWith, res)
 				}
 			}
 		}

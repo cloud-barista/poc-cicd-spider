@@ -21,9 +21,9 @@ import (
 )
 
 type TestCases struct {
-	name                string
-	cmdArgs             []string
-	expectResStartsWith string
+	Name                string
+	CmdArgs             []string
+	ExpectResStartsWith string
 }
 
 var (

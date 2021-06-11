@@ -49,21 +49,21 @@ func MethodTest(t *testing.T, tc TestCases) (string, error) {
 		err error  = nil
 	)
 
-	t.Run(tc.name, func(t *testing.T) {
+	t.Run(tc.Name, func(t *testing.T) {
 
-		res, err = Call(tc.instance, tc.method, tc.args)
+		res, err = Call(tc.Instance, tc.Method, tc.Args)
 		if assert.NoError(t, err) {
-			if tc.expectResStartsWith != "" {
-				if !assert.True(t, strings.HasPrefix(res, tc.expectResStartsWith)) {
+			if tc.ExpectResStartsWith != "" {
+				if !assert.True(t, strings.HasPrefix(res, tc.ExpectResStartsWith)) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"                  Expected Start With: %s\n"+
-						"                  Actual  : %s", tc.expectResStartsWith, res)
+						"                  Actual  : %s", tc.ExpectResStartsWith, res)
 				}
 			} else {
 				if !assert.Equal(t, "", res) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"      Expected Start With: %s\n"+
-						"      Actual  : %s", tc.expectResStartsWith, res)
+						"      Actual  : %s", tc.ExpectResStartsWith, res)
 				}
 			}
 		}

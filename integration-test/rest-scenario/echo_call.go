@@ -97,38 +97,38 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 		err  error  = nil
 	)
 
-	t.Run(tc.name, func(t *testing.T) {
+	t.Run(tc.Name, func(t *testing.T) {
 		e := echo.New()
 		var req *http.Request = nil
-		if tc.givenPostData != "" {
-			req = httptest.NewRequest(tc.httpMethod, "/"+tc.givenQueryParams, bytes.NewBuffer([]byte(tc.givenPostData)))
+		if tc.GivenPostData != "" {
+			req = httptest.NewRequest(tc.HttpMethod, "/"+tc.GivenQueryParams, bytes.NewBuffer([]byte(tc.GivenPostData)))
 		} else {
-			req = httptest.NewRequest(tc.httpMethod, "/"+tc.givenQueryParams, nil)
+			req = httptest.NewRequest(tc.HttpMethod, "/"+tc.GivenQueryParams, nil)
 		}
 		req.Header.Set("Content-Type", "application/json")
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
-		c.SetPath(tc.whenURL)
-		if tc.givenParaNames != nil {
-			c.SetParamNames(tc.givenParaNames...)
-			c.SetParamValues(tc.givenParaVals...)
+		c.SetPath(tc.WhenURL)
+		if tc.GivenParaNames != nil {
+			c.SetParamNames(tc.GivenParaNames...)
+			c.SetParamValues(tc.GivenParaVals...)
 		}
 
-		_, err = Call(funcs, tc.echoFunc, c)
+		_, err = Call(funcs, tc.EchoFunc, c)
 		if assert.NoError(t, err) {
-			assert.Equal(t, tc.expectStatus, rec.Code)
+			assert.Equal(t, tc.ExpectStatus, rec.Code)
 			body = rec.Body.String()
-			if tc.expectBodyStartsWith != "" {
-				if !assert.True(t, strings.HasPrefix(body, tc.expectBodyStartsWith)) {
+			if tc.ExpectBodyStartsWith != "" {
+				if !assert.True(t, strings.HasPrefix(body, tc.ExpectBodyStartsWith)) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"                  Expected Start With: %s\n"+
-						"                  Actual  : %s", tc.expectBodyStartsWith, body)
+						"                  Actual  : %s", tc.ExpectBodyStartsWith, body)
 				}
 			} else {
 				if !assert.Equal(t, "", body) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"      Expected Start With: %s\n"+
-						"      Actual  : %s", tc.expectBodyStartsWith, body)
+						"      Actual  : %s", tc.ExpectBodyStartsWith, body)
 				}
 			}
 		}

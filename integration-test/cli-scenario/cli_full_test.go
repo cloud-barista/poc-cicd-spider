@@ -9,28 +9,28 @@ func TestCliFull(t *testing.T) {
 		SetUpForCli()
 
 		tc := TestCases{
-			name:                "list cloud os",
-			cmdArgs:             []string{"os", "list", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json"},
-			expectResStartsWith: `{"cloudos":[`,
+			Name:                "list cloud os",
+			CmdArgs:             []string{"os", "list", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json"},
+			ExpectResStartsWith: `{"cloudos":[`,
 		}
 		SpiderCmdTest(t, tc)
 
 		tc = TestCases{
-			name: "register cloud driver",
-			cmdArgs: []string{"driver", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
+			Name: "register cloud driver",
+			CmdArgs: []string{"driver", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
 				`{
 					"DriverName":"mock-unit-driver01",
 					"ProviderName":"MOCK", 
 					"DriverLibFileName":"mock-driver-v1.0.so"
 				}`,
 			},
-			expectResStartsWith: `{"DriverName":"mock-unit-driver01"`,
+			ExpectResStartsWith: `{"DriverName":"mock-unit-driver01"`,
 		}
 		SpiderCmdTest(t, tc)
 
 		tc = TestCases{
-			name: "register credential",
-			cmdArgs: []string{"credential", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
+			Name: "register credential",
+			CmdArgs: []string{"credential", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
 				`{
 					"CredentialName":"mock-unit-credential01",
 					"ProviderName":"MOCK",
@@ -39,13 +39,13 @@ func TestCliFull(t *testing.T) {
 					]
 				}`,
 			},
-			expectResStartsWith: `{"CredentialName":"mock-unit-credential01"`,
+			ExpectResStartsWith: `{"CredentialName":"mock-unit-credential01"`,
 		}
 		SpiderCmdTest(t, tc)
 
 		tc = TestCases{
-			name: "register region",
-			cmdArgs: []string{"region", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
+			Name: "register region",
+			CmdArgs: []string{"region", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
 				`{
 					"RegionName":"mock-unit-region01",
 					"ProviderName":"MOCK",
@@ -54,13 +54,13 @@ func TestCliFull(t *testing.T) {
 					]
 				}`,
 			},
-			expectResStartsWith: `{"RegionName":"mock-unit-region01"`,
+			ExpectResStartsWith: `{"RegionName":"mock-unit-region01"`,
 		}
 		SpiderCmdTest(t, tc)
 
 		tc = TestCases{
-			name: "create connection config",
-			cmdArgs: []string{"connection", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
+			Name: "create connection config",
+			CmdArgs: []string{"connection", "create", "--config", "../conf/grpc_conf.yaml", "-i", "json", "-o", "json", "-d",
 				`{
 					"ConfigName":"mock-unit-config01",
 					"ProviderName":"MOCK", 
@@ -69,7 +69,7 @@ func TestCliFull(t *testing.T) {
 					"RegionName":"mock-unit-region01"
 				}`,
 			},
-			expectResStartsWith: `{"ConfigName":"mock-unit-config01"`,
+			ExpectResStartsWith: `{"ConfigName":"mock-unit-config01"`,
 		}
 		SpiderCmdTest(t, tc)
 

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -117,11 +118,18 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 		if assert.NoError(t, err) {
 			assert.Equal(t, tc.expectStatus, rec.Code)
 			body = rec.Body.String()
-			fmt.Printf("===== body : %s\n", body)
 			if tc.expectBodyStartsWith != "" {
-				assert.True(t, strings.HasPrefix(body, tc.expectBodyStartsWith))
+				if !assert.True(t, strings.HasPrefix(body, tc.expectBodyStartsWith)) {
+					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
+						"                  Expected Start With: %s\n"+
+						"                  Actual  : %s", tc.expectBodyStartsWith, body)
+				}
 			} else {
-				assert.Equal(t, "", body)
+				if !assert.Equal(t, "", body) {
+					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
+						"      Expected Start With: %s\n"+
+						"      Actual  : %s", tc.expectBodyStartsWith, body)
+				}
 			}
 		}
 	})

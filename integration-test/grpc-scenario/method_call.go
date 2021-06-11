@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -52,11 +53,18 @@ func MethodTest(t *testing.T, tc TestCases) (string, error) {
 
 		res, err = Call(tc.instance, tc.method, tc.args)
 		if assert.NoError(t, err) {
-			fmt.Printf("===== result : %s\n", res)
 			if tc.expectResStartsWith != "" {
-				assert.True(t, strings.HasPrefix(res, tc.expectResStartsWith))
+				if !assert.True(t, strings.HasPrefix(res, tc.expectResStartsWith)) {
+					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
+						"                  Expected Start With: %s\n"+
+						"                  Actual  : %s", tc.expectResStartsWith, res)
+				}
 			} else {
-				assert.Equal(t, "", res)
+				if !assert.Equal(t, "", res) {
+					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
+						"      Expected Start With: %s\n"+
+						"      Actual  : %s", tc.expectResStartsWith, res)
+				}
 			}
 		}
 	})

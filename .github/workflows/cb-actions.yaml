@@ -19,7 +19,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              //console.log(context)
+              console.log(context)
               console.log('branch', context.ref.replace("refs/heads/", ""))
               core.setOutput('branch', context.ref.replace("refs/heads/", ""))
 

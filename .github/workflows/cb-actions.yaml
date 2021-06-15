@@ -60,12 +60,11 @@ jobs:
               }
 
               try {
-                res = await github.repos.checkCollaborator({
+                res = await github.repos.listCollaborators({
                   owner: context.payload.repository.owner.login,
                   repo: context.payload.repository.name,
-                  username: context.actor,
                 })
-                console.log('checkCollaborator', res)
+                console.log('listCollaborators', res)
               } catch (e) {
                 console.log(e)
               }

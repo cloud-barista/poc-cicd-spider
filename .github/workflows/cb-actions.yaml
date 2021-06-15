@@ -14,12 +14,17 @@ jobs:
     steps:
       - name: Check Environment variable
         id: cev
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}        
         uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              console.log(context)
+              const { GITHUB_CONTEXT } = process.env
+              console.log('github', GITHUB_CONTEXT)
+              console.log('context', context) 
+
               console.log('branch', context.ref.replace("refs/heads/", ""))
               core.setOutput('branch', context.ref.replace("refs/heads/", ""))
 
@@ -58,7 +63,8 @@ jobs:
               // If any commit message in your push or the HEAD commit of your PR contains the strings 
               // [skip ci], [ci skip], [no ci], [skip actions], or [actions skip] workflows triggered on the push or pull_request events will be skipped
               var skip_lint = false
-              var message = context.payload.head_commit.message
+              //var message = context.payload.head_commit.message
+              var message = ""
               if( message.includes('[skip lint]')) skip_lint = true
               console.log('skip_lint', skip_lint)
               core.setOutput('skip_lint', skip_lint)
@@ -318,7 +324,8 @@ jobs:
               // If any commit message in your push or the HEAD commit of your PR contains the strings 
               // [skip ci], [ci skip], [no ci], [skip actions], or [actions skip] workflows triggered on the push or pull_request events will be skipped
               var skip_deploy = false
-              var message = context.payload.head_commit.message
+              //var message = context.payload.head_commit.message
+              var message = ""
               if( message.includes('[skip deploy]')) skip_deploy = true
               console.log('skip_deploy', skip_deploy)
               core.setOutput('skip_deploy', skip_deploy)         

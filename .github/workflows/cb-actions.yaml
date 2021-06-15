@@ -12,11 +12,44 @@ jobs:
       matrix:
         go: ["1.16"]
     steps:
-      - name: Check environment variable
+      - name: Check Environment variable
+        id: cev
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: |
-          echo 'workflow starting'
+          GITHUB_CONTEXT: ${{ toJSON(github) }}        
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            (async _ => {
+              console.log(context)       
+              core.setOutput('branch', context.ref.replace("refs/heads/", ""))
+
+              var author_association = ""
+              console.log("context.actor", context.actor)
+              console.log("owner.login", context.payload.repository.owner.login)
+              if(context.actor == context.payload.repository.owner.login) author_association = "OWNER"
+
+              core.setOutput('author_association', author_association)
+
+              try {
+                var res = await github.orgs.checkMembershipForUser({org: "cloud-barista", username: context.actor})
+                console.log('checkMembershipForUser', res)
+              } catch (e) {
+                console.log(e)
+              }
+
+              try {
+                res = await github.repos.checkCollaborator({
+                  owner: context.payload.repository.owner.login,
+                  repo: context.payload.repository.name,
+                  username: context.actor,
+                })
+                console.log('checkCollaborator', res)
+              } catch (e) {
+                console.log(e)
+              }
+
+            })();          
 
       - uses: actions/checkout@v2
 

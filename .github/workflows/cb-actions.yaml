@@ -14,12 +14,17 @@ jobs:
     steps:
       - name: Check Environment variable
         id: cev
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}        
         uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              console.log(context)
+              const { github } = process.env
+              console.log('github', github)
+              console.log('context', context) 
+              
               console.log('branch', context.ref.replace("refs/heads/", ""))
               core.setOutput('branch', context.ref.replace("refs/heads/", ""))
 

@@ -32,7 +32,28 @@ jobs:
               core.setOutput('author_association', author_association)
 
               try {
-                var res = await github.orgs.checkMembershipForUser({org: "cloud-barista", username: context.actor})
+                res = await github.orgs.get({org: "cloud-barista"})
+                console.log('get', res)
+              } catch (e) {
+                console.log(e)
+              }
+              
+              try {
+                res = await github.orgs.getMembershipForUser({org: "cloud-barista", username: context.actor})
+                console.log('getMembershipForUser', res)
+              } catch (e) {
+                console.log(e)
+              } 
+              
+              try {
+                res = await github.orgs.listMembers({org: "cloud-barista" })
+                console.log('listMembers', res)
+              } catch (e) {
+                console.log(e)
+              }              
+              
+              try {
+                res = await github.orgs.checkMembershipForUser({org: "cloud-barista", username: context.actor})
                 console.log('checkMembershipForUser', res)
               } catch (e) {
                 console.log(e)

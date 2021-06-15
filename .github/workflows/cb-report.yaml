@@ -12,11 +12,50 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Check environment variable
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: |
-          echo "workflow starting..."
+      - name: Check Environment variable
+        id: cev
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            (async _ => {
+              console.log(context)
+              console.log('branch', context.ref.replace("refs/heads/", ""))
+              core.setOutput('branch', context.ref.replace("refs/heads/", ""))
+
+              var author_association = ""
+              if(context.actor == context.payload.repository.owner.login) author_association = "OWNER"
+              if(author_association == "") {        
+                try {
+                  res = await github.orgs.listMembers({org: "cloud-barista" })
+                  console.log('listMembers', res)
+                  if (res.status >= 200 && res.status < 300) {
+                    isMember = res.data.some(({ login }) => login === context.actor)
+                    if(isMember) author_association = "MEMBER"
+                  }                  
+                } catch (e) {
+                  console.log(e)
+                }              
+              }
+              if(author_association == "") {        
+                try {
+                  res = await github.repos.listCollaborators({
+                    owner: context.payload.repository.owner.login,
+                    repo: context.payload.repository.name,
+                  })
+                  console.log('listCollaborators', res)
+                  if (res.status >= 200 && res.status < 300) {
+                    isCollaborator = res.data.some(({ login }) => login === context.actor)
+                    if(isCollaborator) author_association = "COLLABORATOR"
+                  }                   
+                } catch (e) {
+                  console.log(e)
+                }            
+              }
+              console.log('author_association', author_association)
+              core.setOutput('author_association', author_association)
+
+            })();     
 
       - name: Download cb-actions-artifact
         uses: dawidd6/action-download-artifact@v2

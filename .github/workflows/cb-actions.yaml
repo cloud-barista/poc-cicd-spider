@@ -16,17 +16,15 @@ jobs:
         id: cev
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}        
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              const { GITHUB_CONTEXT } = process.env
-              console.log('github', GITHUB_CONTEXT)
               console.log('context', context) 
 
               var branch = ""
-              if(context.eventName == "pull_request") branch = GITHUB_CONTEXT.base_ref
+              if(context.eventName == "pull_request") branch = context.base_ref
               else branch = context.ref.replace("refs/heads/", "")
               console.log('branch', branch)
               core.setOutput('branch', branch)
@@ -192,13 +190,11 @@ jobs:
         id: cev
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}        
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              const { GITHUB_CONTEXT } = process.env
-              console.log('github', GITHUB_CONTEXT)
               console.log('context', context) 
 
               var branch = ""
@@ -294,13 +290,11 @@ jobs:
         id: cev
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}        
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              const { GITHUB_CONTEXT } = process.env
-              console.log('github', GITHUB_CONTEXT)
               console.log('context', context) 
 
               var branch = ""

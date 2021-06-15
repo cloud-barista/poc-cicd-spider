@@ -24,7 +24,7 @@ jobs:
               console.log('context', context) 
 
               var branch = ""
-              if(context.eventName == "pull_request") branch = context.base_ref
+              if(context.eventName == "pull_request") branch = context.payload.pull_request.base.ref
               else branch = context.ref.replace("refs/heads/", "")
               console.log('branch', branch)
               core.setOutput('branch', branch)
@@ -198,7 +198,7 @@ jobs:
               console.log('context', context) 
 
               var branch = ""
-              if(context.eventName == "pull_request") branch = GITHUB_CONTEXT.base_ref
+              if(context.eventName == "pull_request") branch = context.payload.pull_request.base.ref
               else branch = context.ref.replace("refs/heads/", "")
               console.log('branch', branch)
               core.setOutput('branch', branch)
@@ -298,7 +298,7 @@ jobs:
               console.log('context', context) 
 
               var branch = ""
-              if(context.eventName == "pull_request") branch = GITHUB_CONTEXT.base_ref
+              if(context.eventName == "pull_request") branch = context.payload.pull_request.base.ref
               else branch = context.ref.replace("refs/heads/", "")
               console.log('branch', branch)
               core.setOutput('branch', branch)

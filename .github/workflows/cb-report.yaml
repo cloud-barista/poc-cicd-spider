@@ -55,11 +55,13 @@ jobs:
               console.log('author_association', author_association)
               core.setOutput('author_association', author_association)
 
-              var skip_ci = false
+              // If any commit message in your push or the HEAD commit of your PR contains the strings 
+              // [skip ci], [ci skip], [no ci], [skip actions], or [actions skip] workflows triggered on the push or pull_request events will be skipped
+              var skip_summary = false
               var message = context.payload.workflow_run.head_commit.message
-              if( message.includes('[skip ci]')) skip_ci = true
-              console.log('skip_ci', skip_ci)
-              core.setOutput('skip_ci', skip_ci)              
+              if( message.includes('[skip summary]')) skip_summary = true
+              console.log('skip_summary', skip_summary)
+              core.setOutput('skip_summary', skip_summary)              
 
             })();     
 

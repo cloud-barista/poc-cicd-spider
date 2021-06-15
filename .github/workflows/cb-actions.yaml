@@ -25,49 +25,35 @@ jobs:
               core.setOutput('branch', context.ref.replace("refs/heads/", ""))
 
               var author_association = ""
-              console.log("context.actor", context.actor)
-              console.log("owner.login", context.payload.repository.owner.login)
               if(context.actor == context.payload.repository.owner.login) author_association = "OWNER"
-
-              core.setOutput('author_association', author_association)
-
-              try {
-                res = await github.orgs.get({org: "cloud-barista"})
-                console.log('get', res)
-              } catch (e) {
-                console.log(e)
+              if(author_association == "") {        
+                try {
+                  res = await github.orgs.listMembers({org: "cloud-barista" })
+                  console.log('listMembers', res)
+                  if (res.status >= 200 && res.status < 300) {
+                    isMember = res.data.some(({ login }) => login === context.actor)
+                    if(isMember) author_association = "MEMBER"
+                  }                  
+                } catch (e) {
+                  console.log(e)
+                }              
               }
-              
-              try {
-                res = await github.orgs.getMembershipForUser({org: "cloud-barista", username: context.actor})
-                console.log('getMembershipForUser', res)
-              } catch (e) {
-                console.log(e)
-              } 
-              
-              try {
-                res = await github.orgs.listMembers({org: "cloud-barista" })
-                console.log('listMembers', res)
-              } catch (e) {
-                console.log(e)
+              if(author_association == "") {        
+                try {
+                  res = await github.repos.listCollaborators({
+                    owner: context.payload.repository.owner.login,
+                    repo: context.payload.repository.name,
+                  })
+                  console.log('listCollaborators', res)
+                  if (res.status >= 200 && res.status < 300) {
+                    isCollaborator = res.data.some(({ login }) => login === context.actor)
+                    if(isCollaborator) author_association = "COLLABORATOR"
+                  }                   
+                } catch (e) {
+                  console.log(e)
+                }            
               }              
-              
-              try {
-                res = await github.orgs.checkMembershipForUser({org: "cloud-barista", username: context.actor})
-                console.log('checkMembershipForUser', res)
-              } catch (e) {
-                console.log(e)
-              }
-
-              try {
-                res = await github.repos.listCollaborators({
-                  owner: context.payload.repository.owner.login,
-                  repo: context.payload.repository.name,
-                })
-                console.log('listCollaborators', res)
-              } catch (e) {
-                console.log(e)
-              }
+              core.setOutput('author_association', author_association)
 
             })();          
 

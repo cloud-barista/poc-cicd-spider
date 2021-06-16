@@ -68,6 +68,7 @@ jobs:
               if(context.eventName == "pull_request") title = context.payload.pull_request.title
               else title = context.payload.head_commit.message
               if( title.includes('[skip lint]')) skip_lint = true
+              console.log('title', title)
               console.log('skip_lint', skip_lint)
               core.setOutput('skip_lint', skip_lint)
 

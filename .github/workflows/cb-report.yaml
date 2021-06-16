@@ -63,6 +63,7 @@ jobs:
               var skip_summary = false
               var title = context.payload.workflow_run.head_commit.message
               if( title.includes('[skip summary]')) skip_summary = true
+              console.log('title', title)
               console.log('skip_summary', skip_summary)
               core.setOutput('skip_summary', skip_summary)              
 

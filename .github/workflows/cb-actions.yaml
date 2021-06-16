@@ -16,17 +16,18 @@ jobs:
         id: cev
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}        
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              const { GITHUB_CONTEXT } = process.env
-              console.log('github', GITHUB_CONTEXT)
               console.log('context', context) 
 
-              console.log('branch', context.ref.replace("refs/heads/", ""))
-              core.setOutput('branch', context.ref.replace("refs/heads/", ""))
+              var branch = ""
+              if(context.eventName == "pull_request") branch = context.payload.pull_request.base.ref
+              else branch = context.ref.replace("refs/heads/", "")
+              console.log('branch', branch)
+              core.setOutput('branch', branch)
 
               var author_association = ""
               if(context.actor == context.payload.repository.owner.login) author_association = "OWNER"
@@ -63,9 +64,11 @@ jobs:
               // If any commit message in your push or the HEAD commit of your PR contains the strings 
               // [skip ci], [ci skip], [no ci], [skip actions], or [actions skip] workflows triggered on the push or pull_request events will be skipped
               var skip_lint = false
-              //var message = context.payload.head_commit.message
-              var message = ""
-              if( message.includes('[skip lint]')) skip_lint = true
+              var title = ""
+              if(context.eventName == "pull_request") title = context.payload.pull_request.title
+              else title = context.payload.head_commit.message
+              if( title.includes('[skip lint]')) skip_lint = true
+              console.log('title', title)
               console.log('skip_lint', skip_lint)
               core.setOutput('skip_lint', skip_lint)
 
@@ -186,14 +189,20 @@ jobs:
     steps:
       - name: Check Environment variable
         id: cev
-        uses: actions/github-script@v3
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}        
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              //console.log(context)
-              console.log('branch', context.ref.replace("refs/heads/", ""))
-              core.setOutput('branch', context.ref.replace("refs/heads/", ""))
+              console.log('context', context) 
+
+              var branch = ""
+              if(context.eventName == "pull_request") branch = context.payload.pull_request.base.ref
+              else branch = context.ref.replace("refs/heads/", "")
+              console.log('branch', branch)
+              core.setOutput('branch', branch)
 
               var author_association = ""
               if(context.actor == context.payload.repository.owner.login) author_association = "OWNER"
@@ -227,7 +236,7 @@ jobs:
               console.log('author_association', author_association)
               core.setOutput('author_association', author_association)
 
-            })();   
+            })();            
 
       - uses: actions/checkout@v2
 
@@ -280,14 +289,20 @@ jobs:
     steps:
       - name: Check Environment variable
         id: cev
-        uses: actions/github-script@v3
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}        
+        uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             (async _ => {
-              //console.log(context)
-              console.log('branch', context.ref.replace("refs/heads/", ""))
-              core.setOutput('branch', context.ref.replace("refs/heads/", ""))
+              console.log('context', context) 
+
+              var branch = ""
+              if(context.eventName == "pull_request") branch = context.payload.pull_request.base.ref
+              else branch = context.ref.replace("refs/heads/", "")
+              console.log('branch', branch)
+              core.setOutput('branch', branch)
 
               var author_association = ""
               if(context.actor == context.payload.repository.owner.login) author_association = "OWNER"
@@ -324,13 +339,14 @@ jobs:
               // If any commit message in your push or the HEAD commit of your PR contains the strings 
               // [skip ci], [ci skip], [no ci], [skip actions], or [actions skip] workflows triggered on the push or pull_request events will be skipped
               var skip_deploy = false
-              //var message = context.payload.head_commit.message
-              var message = ""
-              if( message.includes('[skip deploy]')) skip_deploy = true
+              var title = ""
+              if(context.eventName == "pull_request") title = context.payload.pull_request.title
+              else title = context.payload.head_commit.message
+              if( title.includes('[skip deploy]')) skip_deploy = true
               console.log('skip_deploy', skip_deploy)
-              core.setOutput('skip_deploy', skip_deploy)         
+              core.setOutput('skip_deploy', skip_deploy)
 
-            })();   
+            })();          
 
       - uses: actions/checkout@v2
 

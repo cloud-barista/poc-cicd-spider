@@ -122,13 +122,13 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 				if !assert.True(t, strings.HasPrefix(body, tc.ExpectBodyStartsWith)) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"                  Expected Start With: %s\n"+
-						"                  Actual  : %s", tc.ExpectBodyStartsWith, body)
+						"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 				}
 			} else {
 				if !assert.Equal(t, "", body) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"      Expected Start With: %s\n"+
-						"      Actual  : %s", tc.ExpectBodyStartsWith, body)
+						"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 				}
 			}
 		}

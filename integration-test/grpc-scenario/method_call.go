@@ -57,13 +57,13 @@ func MethodTest(t *testing.T, tc TestCases) (string, error) {
 				if !assert.True(t, strings.HasPrefix(res, tc.ExpectResStartsWith)) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"                  Expected Start With: %s\n"+
-						"                  Actual  : %s", tc.ExpectResStartsWith, res)
+						"                  Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
 			} else {
 				if !assert.Equal(t, "", res) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"      Expected Start With: %s\n"+
-						"      Actual  : %s", tc.ExpectResStartsWith, res)
+						"      Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
 			}
 		}

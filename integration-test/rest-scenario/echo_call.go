@@ -114,21 +114,40 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 			c.SetParamValues(tc.GivenParaVals...)
 		}
 
-		_, err = Call(funcs, tc.EchoFunc, c)
+		res, err := Call(funcs, tc.EchoFunc, c)
 		if assert.NoError(t, err) {
-			assert.Equal(t, tc.ExpectStatus, rec.Code)
-			body = rec.Body.String()
-			if tc.ExpectBodyStartsWith != "" {
-				if !assert.True(t, strings.HasPrefix(body, tc.ExpectBodyStartsWith)) {
-					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
-						"                  Expected Start With: %s\n"+
-						"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+			if res != nil && !res[0].IsNil() {
+				he, _ := res[0].Interface().(*echo.HTTPError) // echo.NewHTTPError()로 에러를 리턴했을 경우
+				assert.Equal(t, tc.ExpectStatus, he.Code)
+				body = fmt.Sprintf("%v", he.Message)
+				if tc.ExpectBodyStartsWith != "" {
+					if !assert.True(t, strings.HasPrefix(body, tc.ExpectBodyStartsWith)) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
+							"                  Expected Start With: %s\n"+
+							"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+					}
+				} else {
+					if !assert.Equal(t, "", body) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
+							"      Expected Start With: %s\n"+
+							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+					}
 				}
 			} else {
-				if !assert.Equal(t, "", body) {
-					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
-						"      Expected Start With: %s\n"+
-						"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+				assert.Equal(t, tc.ExpectStatus, rec.Code)
+				body = rec.Body.String()
+				if tc.ExpectBodyStartsWith != "" {
+					if !assert.True(t, strings.HasPrefix(body, tc.ExpectBodyStartsWith)) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
+							"                  Expected Start With: %s\n"+
+							"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+					}
+				} else {
+					if !assert.Equal(t, "", body) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
+							"      Expected Start With: %s\n"+
+							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+					}
 				}
 			}
 		}

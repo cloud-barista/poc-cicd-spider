@@ -127,7 +127,7 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 							"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 					}
 				} else {
-					if !assert.Equal(t, "", body) {
+					if !assert.True(t, "" == body) {
 						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
 							"      Expected Start With: %s\n"+
 							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
@@ -143,7 +143,7 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 							"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 					}
 				} else {
-					if !assert.Equal(t, "", body) {
+					if !assert.True(t, "" == body) {
 						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
 							"      Expected Start With: %s\n"+
 							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)

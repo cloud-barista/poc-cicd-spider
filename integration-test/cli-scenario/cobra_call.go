@@ -48,7 +48,7 @@ func SpiderCmdTest(t *testing.T, tc TestCases) (string, error) {
 						"                  Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
 			} else {
-				if !assert.Equal(t, "", res) {
+				if !assert.True(t, "" == res) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
 						"      Expected Start With: %s\n"+
 						"      Actual  : %s\n", tc.ExpectResStartsWith, res)

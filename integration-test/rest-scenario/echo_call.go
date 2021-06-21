@@ -117,9 +117,13 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 		res, err := Call(funcs, tc.EchoFunc, c)
 		if assert.NoError(t, err) {
 			if res != nil && !res[0].IsNil() {
-				he, _ := res[0].Interface().(*echo.HTTPError) // echo.NewHTTPError()로 에러를 리턴했을 경우
-				assert.Equal(t, tc.ExpectStatus, he.Code)
-				body = fmt.Sprintf("%v", he.Message)
+				he, ok := res[0].Interface().(*echo.HTTPError)
+				if ok { // echo.NewHTTPError() 로 에러를 리턴했을 경우
+					assert.Equal(t, tc.ExpectStatus, he.Code)
+					body = fmt.Sprintf("%v", he.Message)
+				} else { // err 로 에러를 리턴했을 경우
+					body = fmt.Sprintf("%v", res[0])
+				}
 				if tc.ExpectBodyStartsWith != "" {
 					if !assert.True(t, strings.HasPrefix(body, tc.ExpectBodyStartsWith)) {
 						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+

@@ -35,7 +35,7 @@ func TestCliFull(t *testing.T) {
 					"CredentialName":"mock-unit-credential01",
 					"ProviderName":"MOCK",
 					"KeyValueInfoList": [
-						{"Key":"MockName", "Value":"mock_unit_name00"}
+						{"Key":"MockName", "Value":"mock_unit_json"}
 					]
 				}`,
 			},

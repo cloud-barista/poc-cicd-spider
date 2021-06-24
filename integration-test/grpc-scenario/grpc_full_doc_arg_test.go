@@ -33,7 +33,7 @@ func TestGrpcFullDocArg(t *testing.T) {
 			Instance: CimApi,
 			Method:   "CreateCredential",
 			Args: []interface{}{
-				`{"CredentialName":"mock-unit-credential01","ProviderName":"MOCK", "KeyValueInfoList": [{"Key":"MockName", "Value":"mock_unit_name00"}]}`,
+				`{"CredentialName":"mock-unit-credential01","ProviderName":"MOCK", "KeyValueInfoList": [{"Key":"MockName", "Value":"mock_unit_doc"}]}`,
 			},
 			ExpectResStartsWith: `{"CredentialName":"mock-unit-credential01"`,
 		}

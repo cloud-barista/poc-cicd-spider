@@ -12,12 +12,15 @@ import (
 	"testing"
 
 	restruntime "github.com/cloud-barista/poc-cicd-spider/api-runtime/rest-runtime"
+	aw "github.com/cloud-barista/poc-cicd-spider/api-runtime/rest-runtime/admin-web"
+
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
 
 var funcs = map[string]interface{}{
 	"ListCloudOS":            restruntime.ListCloudOS,
+	"EndpointInfo":           restruntime.EndpointInfo,
 	"RegisterCloudDriver":    restruntime.RegisterCloudDriver,
 	"ListCloudDriver":        restruntime.ListCloudDriver,
 	"GetCloudDriver":         restruntime.GetCloudDriver,
@@ -73,6 +76,23 @@ var funcs = map[string]interface{}{
 	"GetVMStatus":            restruntime.GetVMStatus,
 	"ControlVM":              restruntime.ControlVM,
 	"SshRun":                 restruntime.SshRun,
+	"Frame":                  aw.Frame,
+	"Top":                    aw.Top,
+	"Driver":                 aw.Driver,
+	"Credential":             aw.Credential,
+	"Region":                 aw.Region,
+	"Connectionconfig":       aw.Connectionconfig,
+	"SpiderInfo":             aw.SpiderInfo,
+	"VPC":                    aw.VPC,
+	"VPCMgmt":                aw.VPCMgmt,
+	"SecurityGroup":          aw.SecurityGroup,
+	"SecurityGroupMgmt":      aw.SecurityGroupMgmt,
+	"KeyPair":                aw.KeyPair,
+	"KeyPairMgmt":            aw.KeyPairMgmt,
+	"VM":                     aw.VM,
+	"VMMgmt":                 aw.VMMgmt,
+	"VMImage":                aw.VMImage,
+	"VMSpec":                 aw.VMSpec,
 }
 
 func Call(m map[string]interface{}, name string, params ...interface{}) (result []reflect.Value, err error) {
@@ -151,6 +171,76 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
 							"      Expected Start With: %s\n"+
 							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
+					}
+				}
+			}
+		}
+	})
+
+	return body, err
+}
+
+func EchoWebTest(t *testing.T, tc TestCases) (string, error) {
+
+	var (
+		body string = ""
+		err  error  = nil
+	)
+
+	t.Run(tc.Name, func(t *testing.T) {
+		e := echo.New()
+		var req *http.Request = nil
+		if tc.GivenPostData != "" {
+			req = httptest.NewRequest(tc.HttpMethod, "/"+tc.GivenQueryParams, bytes.NewBuffer([]byte(tc.GivenPostData)))
+		} else {
+			req = httptest.NewRequest(tc.HttpMethod, "/"+tc.GivenQueryParams, nil)
+		}
+		req.Header.Set("Content-Type", "application/json")
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
+		c.SetPath(tc.WhenURL)
+		if tc.GivenParaNames != nil {
+			c.SetParamNames(tc.GivenParaNames...)
+			c.SetParamValues(tc.GivenParaVals...)
+		}
+
+		res, err := Call(funcs, tc.EchoFunc, c)
+		if assert.NoError(t, err) {
+			if res != nil && !res[0].IsNil() {
+				he, ok := res[0].Interface().(*echo.HTTPError)
+				if ok { // echo.NewHTTPError() 로 에러를 리턴했을 경우
+					assert.Equal(t, tc.ExpectStatus, he.Code)
+					body = fmt.Sprintf("%v", he.Message)
+				} else { // err 로 에러를 리턴했을 경우
+					body = fmt.Sprintf("%v", res[0])
+				}
+				if tc.ExpectBodyContains != "" {
+					if !assert.True(t, strings.Contains(body, tc.ExpectBodyContains)) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
+							"                  Expected Contains: %s\n"+
+							"                  Actual  : %s\n", tc.ExpectBodyContains, body)
+					}
+				} else {
+					if !assert.True(t, "" == body) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
+							"      Expected Contains: %s\n"+
+							"      Actual  : %s\n", tc.ExpectBodyContains, body)
+					}
+				}
+			} else {
+				assert.Equal(t, tc.ExpectStatus, rec.Code)
+				body = rec.Body.String()
+				if tc.ExpectBodyContains != "" {
+					if !assert.True(t, strings.Contains(body, tc.ExpectBodyContains)) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
+							"                  Expected Contains: %s\n"+
+							"                  Actual  : %s\n", tc.ExpectBodyContains, body)
+					}
+				} else {
+					if !assert.True(t, "" == body) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
+							"      Expected Contains: %s\n"+
+							"      Actual  : %s\n", tc.ExpectBodyContains, body)
 					}
 				}
 			}

@@ -34,7 +34,7 @@ func TestGrpcFullParamArg(t *testing.T) {
 					CredentialName: "mock-unit-credential01",
 					ProviderName:   "MOCK",
 					KeyValueInfoList: []api.KeyValue{
-						api.KeyValue{Key: "MockName", Value: "mock_unit_name00"},
+						api.KeyValue{Key: "MockName", Value: "mock_unit_param"},
 					},
 				},
 			},

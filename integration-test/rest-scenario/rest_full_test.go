@@ -45,7 +45,7 @@ func TestRestFull(t *testing.T) {
 			GivenQueryParams:     "",
 			GivenParaNames:       nil,
 			GivenParaVals:        nil,
-			GivenPostData:        `{"CredentialName":"mock-unit-credential01","ProviderName":"MOCK", "KeyValueInfoList": [{"Key":"MockName", "Value":"mock_unit_name00"}]}`,
+			GivenPostData:        `{"CredentialName":"mock-unit-credential01","ProviderName":"MOCK", "KeyValueInfoList": [{"Key":"MockName", "Value":"mock_unit_full"}]}`,
 			ExpectStatus:         http.StatusOK,
 			ExpectBodyStartsWith: `{"CredentialName":"mock-unit-credential01"`,
 		}

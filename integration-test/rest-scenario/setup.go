@@ -3,6 +3,7 @@ package restscenario
 import (
 	"os"
 
+	cbstore "github.com/cloud-barista/cb-store"
 	sshrun "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/vm-ssh"
 
 	"bou.ke/monkey"
@@ -20,6 +21,7 @@ type TestCases struct {
 	GivenPostData        string
 	ExpectStatus         int
 	ExpectBodyStartsWith string
+	ExpectBodyContains   string
 }
 
 var (
@@ -35,7 +37,7 @@ func SetUpForRest() {
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
 
-	os.RemoveAll("../meta_db")
+	cbstore.InitData()
 
 	monkey.Patch(sshrun.SSHRun, func(sshInfo sshrun.SSHInfo, cmd string) (string, error) {
 		return cmd + " success", nil
@@ -43,7 +45,7 @@ func SetUpForRest() {
 }
 
 func TearDownForRest() {
-	os.RemoveAll("../meta_db")
+	cbstore.InitData()
 
 	os.Stdout = holdStdout
 }

@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 
+	cbstore "github.com/cloud-barista/cb-store"
 	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
 	grpc_service "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/service"
 	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
@@ -40,7 +41,7 @@ func SetUpForCli() {
 	holdStdout = os.Stdout
 	os.Stdout = os.NewFile(0, os.DevNull)
 
-	os.RemoveAll("../meta_db")
+	cbstore.InitData()
 
 	/**
 	** Spider Grpc Server Setup
@@ -89,7 +90,7 @@ func SetUpForCli() {
 func TearDownForCli() {
 	gs.Stop()
 
-	os.RemoveAll("../meta_db")
+	cbstore.InitData()
 
 	os.Stdout = holdStdout
 }

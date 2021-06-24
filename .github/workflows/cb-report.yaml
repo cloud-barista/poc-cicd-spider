@@ -89,6 +89,26 @@ jobs:
             var fs = require('fs');
 
             //
+            // SELFHOST CHECK RESULT LOADING
+            //             
+            var selfHostCheck = 0
+            if (fs.existsSync('./cb-artifact-hosted/selfhost.check')) {
+              selfHostCheck = Number(fs.readFileSync('./cb-artifact-hosted/selfhost.check', 'utf8'))
+            }
+            //console.log('selfHostCheck', selfHostCheck)  
+            core.setOutput('selfHostCheck', selfHostCheck)   
+
+            //
+            // SELFHOST LOG RESULT LOADING
+            //             
+            var selfHostLog = ''
+            if (fs.existsSync('./cb-artifact-hosted/selfhost.log')) {
+              selfHostLog = fs.readFileSync('./cb-artifact-hosted/selfhost.log', 'utf8')
+            }
+            //console.log('selfHostLog', selfHostLog) 
+            core.setOutput('selfHostLog', selfHostLog)  
+
+            //
             // PR NUMBER LOADING
             //
             var prNumber = 0
@@ -363,6 +383,12 @@ jobs:
               summaryReport += '- deploy : -\n'
             }       
 
+            if(selfHostCheck != 0) {
+              summaryReport += '- self host runner : fail\n'
+            } else {
+              summaryReport += '- self host runner : success\n'
+            }            
+
             var dateObj = new Date()
             var year = dateObj.getFullYear()
             var month = ('0' + (dateObj.getMonth() + 1)).slice(-2)
@@ -421,6 +447,9 @@ jobs:
             publishReport.deploy.publish.run = publishRun
             publishReport.deploy.publish.check = publishCheck
             publishReport.deploy.publish.details = publishLog
+            publishReport.selfhost = {}
+            publishReport.selfhost.check = selfHostCheck     
+            publishReport.selfhost.details = selfHostLog             
 
             fs.writeFileSync(reportPath + '/' + context.sha + '.json', JSON.stringify(publishReport), 'utf8');
             fs.copyFileSync('./cb-artifact/coverage.html', reportPath + '/' + context.sha + '.html')

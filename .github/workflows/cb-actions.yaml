@@ -89,9 +89,9 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-      - name: Get Hostname
+      - name: Get OS Version
         run: |
-          (hostname > ./outputs/selfhost.log 2>&1; echo $? > ./outputs/selfhost.check ) || true
+          (uname -a > ./outputs/selfhost.log 2>&1; echo $? > ./outputs/selfhost.check ) || true
 
           if [ -f "./outputs/selfhost.check" ] ; then
             echo "======= selfhost.check ======="

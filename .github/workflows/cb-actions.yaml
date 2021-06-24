@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - "**.go"
+      - ".github/**"
   pull_request:
     paths:
-      - "**.go"    
+      - "**.go"
+      - ".github/**"      
 
 jobs:
   cb-ci-hosted-job:

@@ -91,15 +91,15 @@ jobs:
 
       - name: Get Hostname
         run: |
-          (hostname > ../outputs/selfhost.log 2>&1; echo $? > ../outputs/selfhost.check ) || true
+          (hostname > ./outputs/selfhost.log 2>&1; echo $? > ./outputs/selfhost.check ) || true
 
-          if [ -f "../outputs/selfhost.check" ] ; then
+          if [ -f "./outputs/selfhost.check" ] ; then
             echo "======= selfhost.check ======="
-            cat ../outputs/selfhost.check
+            cat ./outputs/selfhost.check
           fi    
-          if [ -f "../outputs/selfhost.log" ] ; then
+          if [ -f "./outputs/selfhost.log" ] ; then
             echo "======= selfhost.log ======="
-            cat ../outputs/selfhost.log
+            cat ./outputs/selfhost.log
           fi         
 
       - name: Upload Result

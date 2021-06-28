@@ -24,11 +24,16 @@ func SpiderCmdTest(t *testing.T, tc TestCases) (string, error) {
 
 		spiderCmd := cmd.NewRootCmd()
 		b := bytes.NewBufferString("")
+		e := bytes.NewBufferString("")
 		spiderCmd.SetOut(b)
+		spiderCmd.SetErr(e)
 		spiderCmd.SetArgs(tc.CmdArgs)
 		spiderCmd.Execute()
 
-		out, err := ioutil.ReadAll(b)
+		out, err := ioutil.ReadAll(e)
+		if assert.NoError(t, err) && string(out) == "" {
+			out, err = ioutil.ReadAll(b)
+		}
 
 		if assert.NoError(t, err) {
 			if strings.HasPrefix(string(out), "{") {

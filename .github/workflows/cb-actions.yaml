@@ -2,9 +2,13 @@ name: CB-CI-ACTIONS-WORKFLOW
 
 on:
   push:
+    branches-ignore:
+    - main
+    - master
     paths:
       - "**.go"
       - ".github/**"
+      
   pull_request:
     paths:
       - "**.go"

@@ -526,7 +526,7 @@ jobs:
             var htmlCoverageFile = context.sha + '_' + context.runId + '.html'
 
             summaryReport += '\n'
-            summaryReport += '<a href="https://cloud-barista.github.io/$DASHBOARD_REPO/index.html?info=' + reportPath + '/' + jsonReportFile + '" target="_blank" rel="noopener">[details]</a>\n'
+            summaryReport += '<a href="https://cloud-barista.github.io/${DASHBOARD_REPO}/index.html?info=' + reportPath + '/' + jsonReportFile + '" target="_blank" rel="noopener">[details]</a>\n'
 
             console.log('summaryReport', summaryReport)   
             core.setOutput('summaryReport', summaryReport)

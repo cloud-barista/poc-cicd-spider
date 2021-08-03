@@ -24,7 +24,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-// RunServer - GRPC 서버 실행
+// RunServer - GRPC 서버 실행.
 func RunServer() {
 	logger := logger.NewLogger()
 

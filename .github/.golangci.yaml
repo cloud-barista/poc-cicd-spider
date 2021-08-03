@@ -17,7 +17,7 @@ linters-settings:
     # Select the Go version to target. The default is '1.13'.
     go: "1.16"
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all" ]
+    checks: ["all"]
 
   revive:
     # see https://github.com/mgechev/revive#available-rules for details.
@@ -72,6 +72,47 @@ linters-settings:
         severity: warning
       - name: redefines-builtin-id
         severity: warning
+  gofmt:
+    # simplify code: gofmt with `-s` option, true by default
+    simplify: true
+
+  govet:
+    # report about shadowed variables
+    check-shadowing: true
+
+    # settings per analyzer
+    settings:
+      printf: # analyzer name, run `go tool vet help` to see all analyzers
+        funcs: # run `go tool vet help printf` to see available settings for `printf` analyzer
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+
+    # enable or disable analyzers by name
+    # run `go tool vet help` to see all analyzers
+    enable:
+      - atomicalign
+    enable-all: false
+    disable:
+      - shadow
+    disable-all: false
+
+  gocyclo:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 10
+
+  golint:
+    # minimal confidence for issues, default is 0.8
+    min-confidence: 0.8
+
+  misspell:
+    # Correct spellings using locale preferences for US or UK.
+    # Default is to use a neutral variety of English.
+    # Setting locale to US will correct the British spelling of 'colour' to 'color'.
+    locale: US
+    ignore-words:
+      - someword
 
 issues:
   # List of regexps of issue texts to exclude, empty list by default.
@@ -79,11 +120,19 @@ issues:
   # it can be disabled by `exclude-use-default: false`. To list all
   # excluded by default patterns execute `golangci-lint run --help`
 
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+
   # Maximum issues count per one linter. Set to 0 to disable. Default is 50.
-  max-issues-per-linter: 50
+  max-issues-per-linter: 0
 
   # Maximum count of issues with the same text. Set to 0 to disable. Default is 3.
-  max-same-issues: 3
+  max-same-issues: 0
 
 linters:
   # please, do not use `enable-all`: it's deprecated and will be removed soon.
@@ -92,8 +141,14 @@ linters:
   enable:
     #- deadcode # Unused code check
     #- errcheck # Bug Finding
-    #- gofmt # Formatting check
+    #- staticcheck # Bug Finding
     #- revive # Style Check
+    #- gofmt # Formatting check
+    #- govet # Bug Finding
+    #- gocyclo # Complexity Check
+    #- golint # Style Check
+    #- ineffassign # Unused code check
+    #- misspell # Style Check
 run:
   # timeout for analysis, e.g. 30s, 5m, default is 1m
   timeout: 5m

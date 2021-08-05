@@ -5,9 +5,9 @@ import (
 
 	cbstore "github.com/cloud-barista/cb-store"
 	sshrun "github.com/cloud-barista/poc-cicd-spider/cloud-control-manager/vm-ssh"
+	"github.com/sirupsen/logrus"
 
 	"bou.ke/monkey"
-	"github.com/sirupsen/logrus"
 )
 
 type TestCases struct {
@@ -45,6 +45,7 @@ func SetUpForRest() {
 }
 
 func TearDownForRest() {
+
 	cbstore.InitData()
 
 	os.Stdout = holdStdout

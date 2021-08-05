@@ -30,6 +30,7 @@ type TestCases struct {
 	Method              string
 	Args                []interface{}
 	ExpectResStartsWith string
+	ExpectResContains   string
 }
 
 var (
@@ -66,7 +67,7 @@ func SetUpForGrpc() {
 	logger := logger.NewLogger()
 
 	spidersrv := &config.GrpcServerConfig{
-		Addr: "127.0.0.1:2048",
+		Addr: "127.0.0.1:32048",
 	}
 
 	cbserver, closer, err := gc.NewCBServer(spidersrv)

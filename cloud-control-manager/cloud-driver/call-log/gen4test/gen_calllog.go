@@ -2,7 +2,7 @@
 //           Referred to cb-log
 //
 //      * Cloud-Barista: https://github.com/cloud-barista
-//      * CB-Spider: https://github.com/cloud-barista/poc-cicd-spider
+//      * CB-Spider: https://github.com/cloud-barista/cb-spider
 //      * cb-log: https://github.com/cloud-barista/cb-log
 //
 // load and set config file
@@ -62,8 +62,9 @@ var cloudOSList = []call.CLOUD_OS{
 	call.ALIBABA,
 	call.DOCKER,
 	call.CLOUDTWIN,
-	//call.NCP,
-	//call.NCPVPC,
+	call.TENCENT,
+	call.NCP,
+	call.NCPVPC,
 }
 
 var resTypeList = []call.RES_TYPE{

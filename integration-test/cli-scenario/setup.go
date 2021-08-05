@@ -7,8 +7,10 @@ import (
 	"os"
 	"time"
 
+	"bou.ke/monkey"
 	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/config"
 	"github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/logger"
+	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 
@@ -16,15 +18,13 @@ import (
 	gc "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/common"
 	grpc_service "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/service"
 	pb "github.com/cloud-barista/poc-cicd-spider/api-runtime/grpc-runtime/stub/cbspider"
-
-	"bou.ke/monkey"
-	"github.com/sirupsen/logrus"
 )
 
 type TestCases struct {
 	Name                string
 	CmdArgs             []string
 	ExpectResStartsWith string
+	ExpectResContains   string
 }
 
 var (
@@ -60,7 +60,7 @@ func SetUpForCli() {
 	logger := logger.NewLogger()
 
 	spidersrv := &config.GrpcServerConfig{
-		Addr: "127.0.0.1:2048",
+		Addr: "127.0.0.1:32048",
 	}
 
 	cbserver, closer, err := gc.NewCBServer(spidersrv)

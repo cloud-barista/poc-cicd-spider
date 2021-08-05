@@ -52,10 +52,18 @@ func SpiderCmdTest(t *testing.T, tc TestCases) (string, error) {
 						"                  Expected Start With: %s\n"+
 						"                  Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
-			} else {
+			}
+			if tc.ExpectResContains != "" {
+				if !assert.True(t, strings.Contains(res, tc.ExpectResContains)) {
+					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
+						"                  Expected Contains: %s\n"+
+						"                  Actual  : %s\n", tc.ExpectResContains, res)
+				}
+			}
+			if tc.ExpectResStartsWith == "" && tc.ExpectResContains == "" {
 				if !assert.True(t, "" == res) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
-						"      Expected Start With: %s\n"+
+						"      Expected StartWith/Contains: %s\n"+
 						"      Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
 			}

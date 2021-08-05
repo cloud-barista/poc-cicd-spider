@@ -14,6 +14,9 @@ import (
 
 const (
 	SecurityGroup = "SECURITYGROUP"
+	NULL          = ""
+	DefaultCIDR   = "0.0.0.0/0"
+	DefaultPort   = "0"
 )
 
 type ClouditSecurityHandler struct {
@@ -80,12 +83,14 @@ func (securityHandler *ClouditSecurityHandler) CreateSecurity(securityReqInfo ir
 	ruleList := make([]securitygroup.SecurityGroupRules, len(*securityReqInfo.SecurityRules))
 	for i, rule := range *securityReqInfo.SecurityRules {
 		var port string
+		if rule.CIDR == NULL {
+			rule.CIDR = DefaultCIDR
+		}
 		if rule.FromPort == rule.ToPort {
 			port = rule.FromPort
 		} else {
 			port = rule.FromPort + "-" + rule.ToPort
 		}
-
 		secRuleInfo := securitygroup.SecurityGroupRules{
 			Name:     fmt.Sprintf("%s-rules-%d", securityReqInfo.IId.NameId, i+1),
 			Type:     rule.Direction,
@@ -242,4 +247,59 @@ func (securityHandler *ClouditSecurityHandler) getSecurityByName(securityName st
 		return nil, err
 	}
 	return security, nil
+}
+
+func (securityHandler *ClouditSecurityHandler) listRulesInSG(securityID string) (*[]securitygroup.SecurityGroupRules, error) {
+	securityHandler.Client.TokenID = securityHandler.CredentialInfo.AuthToken
+	authHeader := securityHandler.Client.AuthenticatedHeaders()
+
+	requestOpts := client.RequestOpts{
+		MoreHeaders: authHeader,
+	}
+
+	securityList, err := securitygroup.ListRulesinSG(securityHandler.Client, securityID, &requestOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return securityList, nil
+}
+
+func (securityHandler *ClouditSecurityHandler) addRuleToSG(extraRuleName, securityID, rule string) (*securitygroup.SecurityGroupRules, error) {
+	securityHandler.Client.TokenID = securityHandler.CredentialInfo.AuthToken
+	authHeader := securityHandler.Client.AuthenticatedHeaders()
+
+	reqInfo := securitygroup.SecurityGroupRules{
+		Name:     extraRuleName,
+		Protocol: strings.ToLower(DefaultSGName),
+		Port:     DefaultPort,
+		Target:   DefaultCIDR,
+		Type:     rule,
+	}
+
+	requestOpts := client.RequestOpts{
+		MoreHeaders: authHeader,
+		JSONBody:    reqInfo,
+	}
+
+	createdRule, err := securitygroup.AddRule(securityHandler.Client, securityID, &requestOpts, rule)
+	if err != nil {
+		return nil, err
+	}
+	return createdRule, nil
+}
+
+func (securityHandler *ClouditSecurityHandler) deleteRuleInSG(securityGroupID, ruleID string) error {
+	securityHandler.Client.TokenID = securityHandler.CredentialInfo.AuthToken
+	authHeader := securityHandler.Client.AuthenticatedHeaders()
+
+	requestOpts := client.RequestOpts{
+		MoreHeaders: authHeader,
+	}
+
+	err := securitygroup.DeleteRule(securityHandler.Client, securityGroupID, &requestOpts, ruleID)
+	if err != nil {
+		return err
+	}
+	return nil
 }

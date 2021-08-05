@@ -1,8 +1,8 @@
-default:
+default: cli
 		@echo -e '\t[CB-Spider] build ./bin/cb-spider....'
 		@go mod download
 		@go build -o bin/cb-spider ./api-runtime
-dyna plugin plug dynamic:
+dyna plugin plug dynamic: cli
 		@echo -e '\t[CB-Spider] build ./bin/cb-spider with plugin mode...'
 		@go mod download
 	        @go build -tags dyna -o bin/cb-spider-dyna ./api-runtime
@@ -13,3 +13,21 @@ cc:
 clean clear:
 		@echo -e '\t[CB-Spider] cleaning...'
 	        @rm -rf bin/cb-spider bin/cb-spider-dyna bin/cb-spider-arm
+	        @rm -rf dist-tmp
+
+cli-dist: cli
+		@echo -e '\t[CB-Spider] tar spctl... to dist'
+		@mkdir -p /tmp/spider/dist/conf 
+		@cp ./interface/spctl ./interface/grpc_conf.yaml /tmp/spider/dist 1> /dev/null
+		@cp ./conf/log_conf.yaml /tmp/spider/dist/conf 1> /dev/null
+		@mkdir -p ./dist
+		@tar -zcvf ./dist/spctl-`(date +%Y.%m.%d.%H)`.tar.gz -C /tmp/spider/dist ./ 1> /dev/null
+		@rm -rf /tmp/spider
+cli:
+		@echo -e '\t[CB-Spider] build ./interface/spctl...'
+		@go mod download
+		@go build -ldflags="-X 'github.com/cloud-barista/poc-cicd-spider/interface/cli/spider/cmd.Version=v0.4.0' -X 'github.com/cloud-barista/poc-cicd-spider/interface/cli/spider/cmd.CommitSHA=`(git rev-parse --short HEAD)`' -X 'github.com/cloud-barista/poc-cicd-spider/interface/cli/spider/cmd.User=`(id -u -n)`' -X 'github.com/cloud-barista/poc-cicd-spider/interface/cli/spider/cmd.Time=`(date)`'" -o ./interface/spctl ./interface/cli/spider/spider.go
+swag swagger:
+		@echo -e '\t[CB-Spider] build Swagger docs'
+		@~/go/bin/swag i -g api-runtime/rest-runtime/CBSpiderRuntime.go -o api-runtime/rest-runtime/docs
+

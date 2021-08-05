@@ -9,7 +9,9 @@
 package restruntime
 
 import (
+	"crypto/subtle"
 	"fmt"
+	"strings"
 	"time"
 
 	"net/http"
@@ -25,9 +27,29 @@ import (
 	// REST API (echo)
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	// echo-swagger middleware
+	_ "github.com/cloud-barista/poc-cicd-spider/api-runtime/rest-runtime/docs"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 var cblog *logrus.Logger
+
+// @title CB-Spider REST API
+// @version latest
+// @description CB-Spider REST API
+
+// @contact.name API Support
+// @contact.url http://cloud-barista.github.io
+// @contact.email contact-to-cloud-barista@googlegroups.com
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:1024
+// @BasePath /spider
+
+// @securityDefinitions.basic BasicAuth
 
 func init() {
 	cblog = config.Cblogger
@@ -35,11 +57,17 @@ func init() {
 	cr.StartTime = currentTime.Format("2006.01.02 15:04:05 Mon")
 	cr.MiddleStartTime = currentTime.Format("2006.01.02.15:04:05")
 	cr.ShortStartTime = fmt.Sprintf("T%02d:%02d:%02d", currentTime.Hour(), currentTime.Minute(), currentTime.Second())
-	cr.HostIPorName = getHostIPorName()
-	cr.ServicePort = ":1024"
+
+	// REST and GO SERVER_ADDRESS since v0.4.4
+	cr.ServerIPorName = getServerIPorName("SERVER_ADDRESS")
+	cr.ServerPort = getServerPort("SERVER_ADDRESS")
+
+	// REST SERVICE_ADDRESS for AdminWeb since v0.4.4
+	cr.ServiceIPorName = getServiceIPorName("SERVICE_ADDRESS")
+	cr.ServicePort = getServicePort("SERVICE_ADDRESS")
 }
 
-// REST API Return struct for boolena type
+// REST API Return struct for boolean type
 type BooleanInfo struct {
 	Result string // true or false
 }
@@ -54,17 +82,44 @@ type route struct {
 	function     echo.HandlerFunc
 }
 
-func getHostIPorName() string {
-	if os.Getenv("LOCALHOST") == "ON" {
-		return "localhost"
+// JSON Simple message struct
+type SimpleMsg struct {
+	Message string `json:"message" example:"Any message"`
+}
+
+//// CB-Spider Servcie Address Configuration
+////   cf)  https://github.com/cloud-barista/poc-cicd-spider/wiki/CB-Spider-Service-Address-Configuration
+
+// REST and GO SERVER_ADDRESS since v0.4.4
+
+// unset                           # default: like 'curl ifconfig.co':1024
+// SERVER_ADDRESS="1.2.3.4:3000"  # => 1.2.3.4:3000
+// SERVER_ADDRESS=":3000"         # => like 'curl ifconfig.co':3000
+// SERVER_ADDRESS="localhost"      # => localhost:1024
+// SERVER_ADDRESS="1.2.3.4:3000"        # => 1.2.3.4::3000
+func getServerIPorName(env string) string {
+
+	hostEnv := os.Getenv(env) // SERVER_ADDRESS or SERVICE_ADDRESS
+
+	if hostEnv == "" {
+		return getPublicIP()
 	}
 
-	// temporary trick for shared public IP Host or VirtualBox VM, etc.
-	// user can setup spider server's IP manually.
-	if os.Getenv("LOCALHOST") != "OFF" {
-		return os.Getenv("LOCALHOST")
+	// "1.2.3.4" or "localhost"
+	if !strings.Contains(hostEnv, ":") {
+		return hostEnv
 	}
 
+	strs := strings.Split(hostEnv, ":")
+	fmt.Println(len(strs))
+	if strs[0] == "" { // ":31024"
+		return getPublicIP()
+	} else { // "1.2.3.4:31024" or "localhost:31024"
+		return strs[0]
+	}
+}
+
+func getPublicIP() string {
 	ip, err := pubip.Get()
 	if err != nil {
 		cblog.Error(err)
@@ -78,6 +133,45 @@ func getHostIPorName() string {
 	return ip.String()
 }
 
+func getServerPort(env string) string {
+	// default REST Service Port
+	servicePort := ":1024"
+
+	hostEnv := os.Getenv(env) // SERVER_ADDRESS or SERVICE_ADDRESS
+	if hostEnv == "" {
+		return servicePort
+	}
+
+	// "1.2.3.4" or "localhost"
+	if !strings.Contains(hostEnv, ":") {
+		return servicePort
+	}
+
+	// ":31024" or "1.2.3.4:31024" or "localhost:31024"
+	strs := strings.Split(hostEnv, ":")
+	servicePort = ":" + strs[1]
+
+	return servicePort
+}
+
+// unset  SERVER_ADDRESS => SERVICE_ADDRESS
+func getServiceIPorName(env string) string {
+	hostEnv := os.Getenv(env)
+	if hostEnv == "" {
+		return cr.ServerIPorName
+	}
+	return getServerIPorName(env)
+}
+
+// unset  SERVER_ADDRESS => SERVICE_ADDRESS
+func getServicePort(env string) string {
+	hostEnv := os.Getenv(env)
+	if hostEnv == "" {
+		return cr.ServerPort
+	}
+	return getServerPort(env)
+}
+
 func RunServer() {
 
 	//======================================= setup routes
@@ -85,6 +179,9 @@ func RunServer() {
 		//----------root
 		{"GET", "", aw.SpiderInfo},
 		{"GET", "/", aw.SpiderInfo},
+
+		//----------Swagger
+		{"GET", "/swagger/*", echoSwagger.WrapHandler},
 
 		//----------EndpointInfo
 		{"GET", "/endpointinfo", EndpointInfo},
@@ -228,6 +325,23 @@ func ApiServer(routes []route) {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	API_USERNAME := os.Getenv("API_USERNAME")
+	API_PASSWORD := os.Getenv("API_PASSWORD")
+
+	if API_USERNAME != "" && API_PASSWORD != "" {
+		cblog.Info("**** Rest Auth Enabled ****")
+		e.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
+			// Be careful to use constant time comparison to prevent timing attacks
+			if subtle.ConstantTimeCompare([]byte(username), []byte(API_USERNAME)) == 1 &&
+				subtle.ConstantTimeCompare([]byte(password), []byte(API_PASSWORD)) == 1 {
+				return true, nil
+			}
+			return false, nil
+		}))
+	} else {
+		cblog.Info("**** Rest Auth Disabled ****")
+	}
+
 	for _, route := range routes {
 		// /driver => /spider/driver
 		route.path = "/spider" + route.path
@@ -253,7 +367,7 @@ func ApiServer(routes []route) {
 
 	spiderBanner()
 
-	e.Logger.Fatal(e.Start(cr.ServicePort))
+	e.Logger.Fatal(e.Start(cr.ServerPort))
 }
 
 //================ API Info
@@ -269,11 +383,13 @@ func EndpointInfo(c echo.Context) error {
 	cblog.Info("call endpointInfo()")
 
 	endpointInfo := fmt.Sprintf("\n  <CB-Spider> Multi-Cloud Infrastructure Federation Framework\n")
-	adminWebURL := "http://" + cr.HostIPorName + cr.ServicePort + "/spider/adminweb"
+	adminWebURL := "http://" + cr.ServiceIPorName + cr.ServicePort + "/spider/adminweb"
 	endpointInfo += fmt.Sprintf("     - AdminWeb: %s\n", adminWebURL)
-	restEndPoint := "http://" + cr.HostIPorName + cr.ServicePort + "/spider"
+	restEndPoint := "http://" + cr.ServiceIPorName + cr.ServicePort + "/spider"
 	endpointInfo += fmt.Sprintf("     - REST API: %s\n", restEndPoint)
-	gRPCServer := "grpc://" + cr.HostIPorName + cr.GoServicePort
+	// swaggerURL := "http://" + cr.ServiceIPorName + cr.ServicePort + "/spider/swagger/index.html"
+	// endpointInfo += fmt.Sprintf("     - Swagger : %s\n", swaggerURL)
+	gRPCServer := "grpc://" + cr.ServiceIPorName + cr.GoServicePort
 	endpointInfo += fmt.Sprintf("     - Go   API: %s\n", gRPCServer)
 
 	return c.String(http.StatusOK, endpointInfo)
@@ -283,10 +399,14 @@ func spiderBanner() {
 	fmt.Println("\n  <CB-Spider> Multi-Cloud Infrastructure Federation Framework")
 
 	// AdminWeb
-	adminWebURL := "http://" + cr.HostIPorName + cr.ServicePort + "/spider/adminweb"
+	adminWebURL := "http://" + cr.ServiceIPorName + cr.ServicePort + "/spider/adminweb"
 	fmt.Printf("     - AdminWeb: %s\n", adminWebURL)
 
 	// REST API EndPoint
-	restEndPoint := "http://" + cr.HostIPorName + cr.ServicePort + "/spider"
+	restEndPoint := "http://" + cr.ServiceIPorName + cr.ServicePort + "/spider"
 	fmt.Printf("     - REST API: %s\n", restEndPoint)
+
+	// Swagger
+	// swaggerURL := "http://" + cr.ServiceIPorName + cr.ServicePort + "/spider/swagger/index.html"
+	// fmt.Printf("     - Swagger : %s\n", swaggerURL)
 }

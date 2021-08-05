@@ -31,11 +31,9 @@ import (
 	"strings"
 )
 
-var CIM_RESTSERVER = "http://localhost:1024"
 var cblog *logrus.Logger
 
 func init() {
-	//CIM_RESTSERVER = "http://localhost:1024"
 	cblog = config.Cblogger
 }
 
@@ -208,6 +206,9 @@ func GetRegionNameByRegionInfo(rgnInfo *rim.RegionInfo) (string, string, error) 
 		regionName = getValue(rgnInfo.KeyValueInfoList, "Region")
 	case "MOCK":
 		regionName = getValue(rgnInfo.KeyValueInfoList, "Region")
+	case "TENCENT":
+		regionName = getValue(rgnInfo.KeyValueInfoList, "Region")
+		zoneName = getValue(rgnInfo.KeyValueInfoList, "Zone")
 	default:
 		errmsg := rgnInfo.ProviderName + " is not a valid ProviderName!!"
 		return "", "", fmt.Errorf(errmsg)

@@ -24,7 +24,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-// RunServer - GRPC 서버 실행.
+// RunServer - GRPC 서버 실행
 func RunServer() {
 	logger := logger.NewLogger()
 
@@ -73,7 +73,7 @@ func RunServer() {
 
 	//fmt.Printf("\n\n => grpc server started on %s\n\n", spidersrv.Addr)
 	cr.GoServicePort = spidersrv.Addr
-	spiderBanner(cr.HostIPorName + spidersrv.Addr)
+	spiderBanner(cr.ServiceIPorName + spidersrv.Addr)
 
 	if err := gs.Serve(conn); err != nil {
 		logger.Error("failed to serve: ", err)

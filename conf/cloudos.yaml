@@ -18,7 +18,7 @@ cloudos:
   - CLOUDIT
   - ALIBABA
   - DOCKER
-  - NCP
 
   - MOCK
   - CLOUDTWIN
+  - IBM

@@ -150,10 +150,18 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 							"                  Expected Start With: %s\n"+
 							"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 					}
-				} else {
+				}
+				if tc.ExpectBodyContains != "" {
+					if !assert.True(t, strings.Contains(body, tc.ExpectBodyContains)) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
+							"                  Expected Contains: %s\n"+
+							"                  Actual  : %s\n", tc.ExpectBodyContains, body)
+					}
+				}
+				if tc.ExpectBodyStartsWith == "" && tc.ExpectBodyContains == "" {
 					if !assert.True(t, "" == body) {
 						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
-							"      Expected Start With: %s\n"+
+							"      Expected StartWith/Contains: %s\n"+
 							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 					}
 				}
@@ -166,83 +174,22 @@ func EchoTest(t *testing.T, tc TestCases) (string, error) {
 							"                  Expected Start With: %s\n"+
 							"                  Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 					}
-				} else {
+				}
+				if tc.ExpectBodyContains != "" {
+					if !assert.True(t, strings.Contains(body, tc.ExpectBodyContains)) {
+						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
+							"                  Expected Contains: %s\n"+
+							"                  Actual  : %s\n", tc.ExpectBodyContains, body)
+					}
+				}
+				if tc.ExpectBodyStartsWith == "" && tc.ExpectBodyContains == "" {
 					if !assert.True(t, "" == body) {
 						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
-							"      Expected Start With: %s\n"+
+							"      Expected StartWith/Contains: %s\n"+
 							"      Actual  : %s\n", tc.ExpectBodyStartsWith, body)
 					}
 				}
-			}
-		}
-	})
 
-	return body, err
-}
-
-func EchoWebTest(t *testing.T, tc TestCases) (string, error) {
-
-	var (
-		body string = ""
-		err  error  = nil
-	)
-
-	t.Run(tc.Name, func(t *testing.T) {
-		e := echo.New()
-		var req *http.Request = nil
-		if tc.GivenPostData != "" {
-			req = httptest.NewRequest(tc.HttpMethod, "/"+tc.GivenQueryParams, bytes.NewBuffer([]byte(tc.GivenPostData)))
-		} else {
-			req = httptest.NewRequest(tc.HttpMethod, "/"+tc.GivenQueryParams, nil)
-		}
-		req.Header.Set("Content-Type", "application/json")
-		rec := httptest.NewRecorder()
-		c := e.NewContext(req, rec)
-		c.SetPath(tc.WhenURL)
-		if tc.GivenParaNames != nil {
-			c.SetParamNames(tc.GivenParaNames...)
-			c.SetParamValues(tc.GivenParaVals...)
-		}
-
-		res, err := Call(funcs, tc.EchoFunc, c)
-		if assert.NoError(t, err) {
-			if res != nil && !res[0].IsNil() {
-				he, ok := res[0].Interface().(*echo.HTTPError)
-				if ok { // echo.NewHTTPError() 로 에러를 리턴했을 경우
-					assert.Equal(t, tc.ExpectStatus, he.Code)
-					body = fmt.Sprintf("%v", he.Message)
-				} else { // err 로 에러를 리턴했을 경우
-					body = fmt.Sprintf("%v", res[0])
-				}
-				if tc.ExpectBodyContains != "" {
-					if !assert.True(t, strings.Contains(body, tc.ExpectBodyContains)) {
-						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
-							"                  Expected Contains: %s\n"+
-							"                  Actual  : %s\n", tc.ExpectBodyContains, body)
-					}
-				} else {
-					if !assert.True(t, "" == body) {
-						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.NewHTTPError): \n"+
-							"      Expected Contains: %s\n"+
-							"      Actual  : %s\n", tc.ExpectBodyContains, body)
-					}
-				}
-			} else {
-				assert.Equal(t, tc.ExpectStatus, rec.Code)
-				body = rec.Body.String()
-				if tc.ExpectBodyContains != "" {
-					if !assert.True(t, strings.Contains(body, tc.ExpectBodyContains)) {
-						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
-							"                  Expected Contains: %s\n"+
-							"                  Actual  : %s\n", tc.ExpectBodyContains, body)
-					}
-				} else {
-					if !assert.True(t, "" == body) {
-						fmt.Fprintf(os.Stderr, "\n                Not Equal(echo.Context): \n"+
-							"      Expected Contains: %s\n"+
-							"      Actual  : %s\n", tc.ExpectBodyContains, body)
-					}
-				}
 			}
 		}
 	})

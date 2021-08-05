@@ -43,7 +43,9 @@ func MethodTest(t *testing.T, tc TestCases) (string, error) {
 			if rv != nil && !rv[1].IsNil() {
 				res = fmt.Sprintf("%v", rv[1])
 				msgSplit := strings.SplitAfter(res, "method: ")
-				res = msgSplit[1]
+				if len(msgSplit) > 0 {
+					res = msgSplit[len(msgSplit)-1]
+				}
 			} else {
 				res = fmt.Sprintf("%v", rv[0])
 
@@ -60,10 +62,18 @@ func MethodTest(t *testing.T, tc TestCases) (string, error) {
 						"                  Expected Start With: %s\n"+
 						"                  Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
-			} else {
+			}
+			if tc.ExpectResContains != "" {
+				if !assert.True(t, strings.Contains(res, tc.ExpectResContains)) {
+					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
+						"                  Expected Contains: %s\n"+
+						"                  Actual  : %s\n", tc.ExpectResContains, res)
+				}
+			}
+			if tc.ExpectResStartsWith == "" && tc.ExpectResContains == "" {
 				if !assert.True(t, "" == res) {
 					fmt.Fprintf(os.Stderr, "\n                Not Equal: \n"+
-						"      Expected Start With: %s\n"+
+						"      Expected StartWith/Contains: %s\n"+
 						"      Actual  : %s\n", tc.ExpectResStartsWith, res)
 				}
 			}

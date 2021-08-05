@@ -26,7 +26,7 @@ var cblogger *logrus.Logger
 func init() {
 	// cblog is a global variable.
 	cblogger = cblog.GetLogger("TencentCloud Resource Test")
-	cblog.SetLevel("info")
+	cblog.SetLevel("debug")
 }
 
 // Test VMSpec
@@ -42,11 +42,12 @@ func handleVMSpec() {
 
 	handler := ResourceHandler.(irs.VMSpecHandler)
 
-	//config := testconf.ReadConfigFile()
+	config := testconf.ReadConfigFile()
 	reqVMSpec := "C2.4XLARGE64" // GPU 1개
 
-	//reqRegion := config.Tencent.Region
-	reqRegion := "ap-tokyo-1"
+	reqZone := config.Tencent.Zone
+
+	cblogger.Info("reqZone : ", reqZone)
 	cblogger.Info("reqVMSpec : ", reqVMSpec)
 
 	for {
@@ -70,21 +71,20 @@ func handleVMSpec() {
 			switch commandNum {
 			case 1:
 				fmt.Println("Start ListVMSpec() ...")
-				result, err := handler.ListVMSpec(reqRegion)
+				result, err := handler.ListVMSpec(reqZone)
 				if err != nil {
 					cblogger.Error("VMSpec 목록 조회 실패 : ", err)
 				} else {
 					cblogger.Info("VMSpec 목록 조회 결과")
 					spew.Dump(result)
 					cblogger.Info("출력 결과 수 : ", len(result))
-					spew.Dump(result)
 				}
 
 				fmt.Println("Finish ListVMSpec()")
 
 			case 2:
 				fmt.Println("Start GetVMSpec() ...")
-				result, err := handler.GetVMSpec(reqRegion, reqVMSpec)
+				result, err := handler.GetVMSpec(reqZone, reqVMSpec)
 				if err != nil {
 					cblogger.Error(reqVMSpec, " VMSpec 정보 조회 실패 : ", err)
 				} else {
@@ -95,7 +95,7 @@ func handleVMSpec() {
 
 			case 3:
 				fmt.Println("Start ListOrgVMSpec() ...")
-				result, err := handler.ListOrgVMSpec(reqRegion)
+				result, err := handler.ListOrgVMSpec(reqZone)
 				if err != nil {
 					cblogger.Error("VMSpec 목록 조회 실패 : ", err)
 				} else {
@@ -108,7 +108,7 @@ func handleVMSpec() {
 
 			case 4:
 				fmt.Println("Start GetOrgVMSpec() ...")
-				result, err := handler.GetOrgVMSpec(reqRegion, reqVMSpec)
+				result, err := handler.GetOrgVMSpec(reqZone, reqVMSpec)
 				if err != nil {
 					cblogger.Error(reqVMSpec, " VMSpec 정보 조회 실패 : ", err)
 				} else {
@@ -411,7 +411,7 @@ func handleVPC() {
 		//CidrBlock: "192.168.0.0/16",
 	}
 
-	reqVpcId := irs.IID{SystemId: "vpc-6we11xwqjc9tyma5i68z0"}
+	reqVpcId := irs.IID{SystemId: "vpc-2u04wg6k"}
 
 	for {
 		fmt.Println("Handler Management")
@@ -603,7 +603,7 @@ func handleVM() {
 		cblogger.Error(err)
 	}
 	vmHandler := ResourceHandler.(irs.VMHandler)
-	VmID := irs.IID{SystemId: "i-6weayupx7qvidhmyl48d"}
+	VmID := irs.IID{SystemId: "ins-rqoo65fo"}
 
 	for {
 		fmt.Println("VM Management")
@@ -632,14 +632,15 @@ func handleVM() {
 
 			case 1:
 				vmReqInfo := irs.VMReqInfo{
-					IId:      irs.IID{NameId: "mcloud-barista-vm-test"},
+					IId: irs.IID{NameId: "mcloud-barista-vm-test"},
+					//IId:      irs.IID{NameId: "bill-test"},
 					ImageIID: irs.IID{SystemId: "img-22trbn9x"}, //Ubuntu Server 20.04 LTS 64
 					//ImageIID:          irs.IID{SystemId: "img-pi0ii46r"}, //Ubuntu Server 18.04.1 LTS 64
-					VpcIID:            irs.IID{SystemId: "vpc-k5r709q6"},
-					SubnetIID:         irs.IID{SystemId: "subnet-a620oq9t"},
-					SecurityGroupIIDs: []irs.IID{{SystemId: "sg-4a4qaitk"}, {SystemId: "sg-aj1mgiwy"}},
+					VpcIID:            irs.IID{SystemId: "vpc-2u04wg7k"},
+					SubnetIID:         irs.IID{SystemId: "subnet-ccawa5nz"},
+					SecurityGroupIIDs: []irs.IID{{SystemId: "sg-3baxppe6"}},
 					VMSpecName:        "S5.SMALL1",
-					KeyPairIID:        irs.IID{SystemId: "skey-oipwukuv"},
+					KeyPairIID:        irs.IID{SystemId: "skey-9mvd64l5"},
 					//VMUserId:          "root", //root만 가능
 					//VMUserPasswd: "Cbuser!@#", //대문자 소문자 모두 사용되어야 함. 그리고 숫자나 특수 기호 중 하나가 포함되어야 함.
 				}
@@ -753,12 +754,12 @@ func handleVM() {
 
 func main() {
 	cblogger.Info("Tencent Cloud Resource Test")
-	//handleVPC() //VPC
+	handleVPC() //VPC
 	//handleKeyPair()
 	//handleVMSpec()
 	//handleSecurity()
 	//handleImage() //AMI
-	handleVM()
+	//handleVM()
 
 	//handlePublicIP() // PublicIP 생성 후 conf
 	//handleVNic() //Lancard

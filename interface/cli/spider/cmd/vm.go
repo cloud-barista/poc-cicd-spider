@@ -35,7 +35,7 @@ func NewVMCmd() *cobra.Command {
 
 	//  Adds the commands for application.
 	vmCmd.AddCommand(NewVMStartCmd())
-	vmCmd.AddCommand(NewVMControlCmd())
+	//vmCmd.AddCommand(NewVMControlCmd())
 	vmCmd.AddCommand(NewVMListStatusCmd())
 	vmCmd.AddCommand(NewVMGetStatusCmd())
 	vmCmd.AddCommand(NewVMListCmd())
@@ -278,7 +278,7 @@ func NewVMListAllCmd() *cobra.Command {
 func NewVMTerminateCSPCmd() *cobra.Command {
 
 	terminateCSPCmd := &cobra.Command{
-		Use:   "deletecsp",
+		Use:   "terminatecsp",
 		Short: "This is terminate csp command for vm",
 		Long:  "This is terminate csp command for vm",
 		Run: func(cmd *cobra.Command, args []string) {

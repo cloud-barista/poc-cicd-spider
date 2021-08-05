@@ -1,4 +1,4 @@
-package grpcscenario
+package goscenario
 
 import (
 	"context"

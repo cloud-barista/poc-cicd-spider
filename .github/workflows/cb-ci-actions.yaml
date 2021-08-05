@@ -227,16 +227,16 @@ jobs:
 
       - name: Run Coverage
         env:
-          CBSPIDER_ROOT: ${{ github.workspace }}/integration-test
-          CBSTORE_ROOT: ${{ github.workspace }}/integration-test
-          CBLOG_ROOT: ${{ github.workspace }}/integration-test
+          CBSPIDER_ROOT: ${{ github.workspace }}/test/interface-test
+          CBSTORE_ROOT: ${{ github.workspace }}/test/interface-test
+          CBLOG_ROOT: ${{ github.workspace }}/test/interface-test
           LOCALHOST: OFF
           PLUGIN_SW: OFF
           MEERKAT: OFF
         run: |
-          cd ${{ github.workspace }}/integration-test
+          cd ${{ github.workspace }}/test/interface-test
 
-          (go test -p 1 -v -coverpkg=$(go list ../... | grep -v integration-test | grep -v protobuf | tr "\n" ",")  -coverprofile=../outputs/coverage.txt ./... > ../outputs/coverage.log 2>&1; echo $? > ../outputs/coverage.check ) || true
+          (go test -p 1 -v -coverpkg=$(go list ../../... | grep -v interface-test | grep -v protobuf | tr "\n" ",")  -coverprofile=../../outputs/coverage.txt ./... > ../../outputs/coverage.log 2>&1; echo $? > ../../outputs/coverage.check ) || true
           
           cd ${{ github.workspace }}
 

@@ -1,4 +1,4 @@
-package grpcscenario
+package goscenario
 
 import (
 	"testing"
@@ -6,8 +6,8 @@ import (
 	"github.com/cloud-barista/poc-cicd-spider/interface/api"
 )
 
-func TestGrpcMiscParamArg(t *testing.T) {
-	t.Run("grpc api misc test for mock driver by parameter args style", func(t *testing.T) {
+func TestGoMiscParamArg(t *testing.T) {
+	t.Run("go api misc test for mock driver by parameter args style", func(t *testing.T) {
 		SetUpForGrpc()
 
 		tc := TestCases{

@@ -1,4 +1,4 @@
-package grpcscenario
+package goscenario
 
 import (
 	"testing"
@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGrpcMisc(t *testing.T) {
-	t.Run("grpc api misc test", func(t *testing.T) {
+func TestGoMisc(t *testing.T) {
+	t.Run("go api misc test", func(t *testing.T) {
 		SetUpForGrpc()
 
 		// CimApi Set/Get Testing

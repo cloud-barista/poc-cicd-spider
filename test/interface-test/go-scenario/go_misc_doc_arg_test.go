@@ -1,11 +1,11 @@
-package grpcscenario
+package goscenario
 
 import (
 	"testing"
 )
 
-func TestGrpcMiscDocArg(t *testing.T) {
-	t.Run("grpc api misc test for mock driver by document args style", func(t *testing.T) {
+func TestGoMiscDocArg(t *testing.T) {
+	t.Run("go api misc test for mock driver by document args style", func(t *testing.T) {
 		SetUpForGrpc()
 
 		tc := TestCases{

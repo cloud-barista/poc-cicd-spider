@@ -40,5 +40,5 @@ interface/spider
 cloud-control-manager/cloud-driver/drivers/ncp/*
 cloud-control-manager/cloud-driver/drivers/ncp-plugin/*
 
-integration-test/profile.cov
-integration-test/meta_db/dat/*
+test/interface-test/profile.cov
+test/interface-test/meta_db/dat/*

@@ -286,7 +286,7 @@ func RunServer() {
 
 		//-------------------------------------------------------------------//
 		//----------SSH RUN
-		{"POST", "/sshrun", SshRun},
+		{"POST", "/sshrun", SSHRun},
 
 		//----------AdminWeb Handler
 		{"GET", "/adminweb", aw.Frame},

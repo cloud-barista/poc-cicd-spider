@@ -577,7 +577,7 @@ func TestRestFull(t *testing.T) {
 
 		tc := TestCases{
 			Name:           "ssh run",
-			EchoFunc:       "SshRun",
+			EchoFunc:       "SSHRun",
 			HttpMethod:     http.MethodPost,
 			WhenURL:        "/spider/sshrun",
 			GivenParaNames: nil,

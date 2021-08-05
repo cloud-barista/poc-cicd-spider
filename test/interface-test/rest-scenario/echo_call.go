@@ -75,7 +75,7 @@ var funcs = map[string]interface{}{
 	"ListVMStatus":           restruntime.ListVMStatus,
 	"GetVMStatus":            restruntime.GetVMStatus,
 	"ControlVM":              restruntime.ControlVM,
-	"SshRun":                 restruntime.SshRun,
+	"SSHRun":                 restruntime.SSHRun,
 	"Frame":                  aw.Frame,
 	"Top":                    aw.Top,
 	"Driver":                 aw.Driver,

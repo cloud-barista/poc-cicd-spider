@@ -35,6 +35,7 @@ type TestCases struct {
 
 var (
 	holdStdout *os.File     = nil
+	nullOut    *os.File     = nil
 	CimApi     *api.CIMApi  = nil
 	CcmApi     *api.CCMApi  = nil
 	gs         *grpc.Server = nil
@@ -47,7 +48,8 @@ func init() {
 func SetUpForGrpc() {
 
 	holdStdout = os.Stdout
-	os.Stdout = os.NewFile(0, os.DevNull)
+	nullOut, _ := os.Open(os.DevNull)
+	os.Stdout = nullOut
 
 	cbstore.InitData()
 
@@ -135,5 +137,6 @@ func TearDownForGrpc() {
 
 	cbstore.InitData()
 
+	nullOut.Close()
 	os.Stdout = holdStdout
 }

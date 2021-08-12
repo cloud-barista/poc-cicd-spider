@@ -26,6 +26,7 @@ type TestCases struct {
 
 var (
 	holdStdout *os.File = nil
+	nullOut    *os.File = nil
 )
 
 func init() {
@@ -35,7 +36,8 @@ func init() {
 func SetUpForRest() {
 
 	holdStdout = os.Stdout
-	os.Stdout = os.NewFile(0, os.DevNull)
+	nullOut, _ := os.Open(os.DevNull)
+	os.Stdout = nullOut
 
 	cbstore.InitData()
 
@@ -48,5 +50,6 @@ func TearDownForRest() {
 
 	cbstore.InitData()
 
+	nullOut.Close()
 	os.Stdout = holdStdout
 }

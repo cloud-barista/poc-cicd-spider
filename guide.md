@@ -2,25 +2,27 @@
 
 비고: 본 문서는 배포후에 참조(링크)하시기 바랍니다. 문서의 최종 위치가 변경될 수 있습니다.
 
-# Cloud-Barista CI/CD 구축 가이드
+# Cloud-Barista CI/CD 및 통합 리포트 체계 구축 가이드
 
-## [목 차]
+**<ins>본 문서는 Cloud-Barista 커뮤니티의 각 레포지토리에 개발 워크플로 자동화(CI/CD) 및 통합 리포트 체계 적용을 돕기 위한 가이드 문서이다.</ins>** GitHub Actions를 활용하여 CI/CD 및 통합 리포트 체계를 적용하는 방법에 대하여 설명한다. 각 레포지토리의 상황은 다를 수 있으므로, 본 문서는 공통 또는 핵심적인 내용에 대하여 주로 설명한다. 따라서, 각 레포지토리의 메인테이너 및 멤버가 세부 조정할 필요가 있다.
 
-1. [개요](#개요)
-2. [GitHub 환경 설정](#GitHub-환경-설정)
-3. [Workflow 파일 구성](#Workflow-파일-구성)
-4. [Dashboard 구축](#Dashboard-구축)
-5. [Unit Test 파일 구성](#Unit-Test-파일-구성)
-6. [CI Workflow 수정](#CI-Workflow-구축)
-7. [CD Workflow 수정](#CD-Workflow-구축)
-8. [REPORTS Workflow 수정](#REPORTS-Workflow-구축)
-9. [Workflow Job 추가](#Workflow-Job-추가)
-10. [Unit Test 시나리오 추가](#Unit-Test-시나리오-추가)
+### 목 차
 
-## [개요]
+- [1. 개요](#1-개요)
+- [GitHub 환경 설정](#GitHub-환경-설정)
+- [Workflow 파일 구성](#Workflow-파일-구성)
+- [Dashboard 구축](#Dashboard-구축)
+- [Unit Test 파일 구성](#Unit-Test-파일-구성)
+- [CI Workflow 수정](#CI-Workflow-구축)
+- [CD Workflow 수정](#CD-Workflow-구축)
+- [REPORTS Workflow 수정](#REPORTS-Workflow-구축)
+- [Workflow Job 추가](#Workflow-Job-추가)
+- [Unit Test 시나리오 추가](#Unit-Test-시나리오-추가)
 
-Cloud-Barista 시스템은 다양한 프레임워크로 구성되어 있고, 프레임워크별로 개발 / 운영하고 있다. 기존 프레임워크 또는 새로운 프레임워크에서 CI/CD를 적용할 수 있도록 표준화된 방법을 제시하고, 실제로 구현할 수 있도록 가이드를 제공한다.  
-본 가이드에서는 GitHub Actions 를 이용한 Cloud-Barista CI/CD 구축 과정을 [poc-cicd-spider](https://github.com/cloud-barista/poc-cicd-spider/tree/master/.github/workflows) 를 기준으로 [CB-SPIDER](https://github.com/cloud-barista/cb-spider) 에 적용하는 방법을 상세히 소개한다.
+## 1. 개요
+
+Cloud-Barista 시스템은 다양한 프레임워크로 구성되어 있고, 프레임워크별로 개발 / 운영하고 있다. 기존 프레임워크 또는 새로운 프레임워크에서 CI/CD를 적용할 수 있도록 공통 또는 핵심적인 방법을 제시하고, 실제로 구현할 수 있도록 가이드를 제공한다.  
+본 가이드에서는 GitHub Actions 를 이용한 Cloud-Barista CI/CD 및 통합 리포트 체계 구축 과정을 [poc-cicd-spider](https://github.com/cloud-barista/poc-cicd-spider/tree/master/.github/workflows) 를 기준으로 [CB-SPIDER](https://github.com/cloud-barista/cb-spider) 에 적용하는 방법을 상세히 소개한다.
 
 ## [GitHub 환경 설정]
 

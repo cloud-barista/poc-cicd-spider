@@ -1,7 +1,3 @@
-(작성중) 클라우드바리스타 CI/CD 가이드 입니다.
-
-비고: 본 문서는 배포후에 참조(링크)하시기 바랍니다. 문서의 최종 위치가 변경될 수 있습니다.
-
 # Cloud-Barista CI/CD 및 통합 리포트 체계 구축 가이드
 
 **<ins>본 문서는 Cloud-Barista 커뮤니티의 각 레포지토리에 개발 워크플로 자동화(CI/CD) 및 통합 리포트 체계 적용을 돕기 위한 가이드 문서이다.</ins>** GitHub Actions를 활용하여 CI/CD 및 통합 리포트 체계를 적용하는 방법에 대하여 설명한다. 각 레포지토리의 상황은 다를 수 있으므로, 본 문서는 공통 또는 핵심적인 내용에 대하여 주로 설명한다. 따라서, 각 레포지토리의 메인테이너 및 멤버가 세부 조정할 필요가 있다.
@@ -9,23 +5,23 @@
 ### 목 차
 
 - [1. 개요](#1-개요)
-- [GitHub 환경 설정](#GitHub-환경-설정)
-- [Workflow 파일 구성](#Workflow-파일-구성)
-- [Dashboard 구축](#Dashboard-구축)
-- [Unit Test 파일 구성](#Unit-Test-파일-구성)
-- [CI Workflow 수정](#CI-Workflow-구축)
-- [CD Workflow 수정](#CD-Workflow-구축)
-- [REPORTS Workflow 수정](#REPORTS-Workflow-구축)
-- [Workflow Job 추가](#Workflow-Job-추가)
-- [Unit Test 시나리오 추가](#Unit-Test-시나리오-추가)
-- [Unit Test 시나리오 수정](#Unit-Test-시나리오-수정)
+- [2. GitHub 환경 설정](#2-gitHub-환경-설정)
+- [3. Workflow 파일 구성](#3-workflow-파일-구성)
+- [4. Dashboard 구축](#4-dashboard-구축)
+- [5. Unit Test 파일 구성](#5-unit-test-파일-구성)
+- [6. CI Workflow 수정](#6-ci-workflow-수정)
+- [7. CD Workflow 수정](#7-cd-workflow-수정)
+- [8. Reports Workflow 수정](#8-reports-workflow-수정)
+- [9. Workflow Job 추가](#9-workflow-job-추가)
+- [10. Unit Test 시나리오 추가](#10-unit-test-시나리오-추가)
+- [11. Unit Test 시나리오 수정](#11-unit-test-시나리오-수정)
 
 ## 1. 개요
 
 Cloud-Barista 시스템은 다양한 프레임워크로 구성되어 있고, 프레임워크별로 개발 / 운영하고 있다. 기존 프레임워크 또는 새로운 프레임워크에서 CI/CD를 적용할 수 있도록 공통 또는 핵심적인 방법을 제시하고, 실제로 구현할 수 있도록 가이드를 제공한다.  
 본 가이드에서는 GitHub Actions 를 이용한 Cloud-Barista CI/CD 및 통합 리포트 체계 구축 과정을 [poc-cicd-spider](https://github.com/cloud-barista/poc-cicd-spider/tree/master/.github/workflows) 를 기준으로 [CB-SPIDER](https://github.com/cloud-barista/cb-spider) 에 적용하는 방법을 상세히 소개한다.
 
-## [GitHub 환경 설정]
+## 2. GitHub 환경 설정
 
 ### (1) Secrets 변수 설정
 
@@ -65,7 +61,7 @@ Cloud-Barista 시스템은 다양한 프레임워크로 구성되어 있고, 프
   <img src="./images/guide-runner.png" width="500">
   <br/><br/>
 
-## [Workflow 파일 구성]
+## 3. Workflow 파일 구성
 
 ### (1) .github 폴더 생성
 
@@ -103,7 +99,7 @@ CB-SPIDER Repository 의 .github 폴더에서 workflows 폴더를 생성한다.
 
 .github/workflows/cb-report.yaml 파일을 CB-SPIDER Repository 의 동일 위치에 복사한다.
 
-## [Dashboard 구축]
+## 4. Dashboard 구축
 
 ### (1) Dashboard Repository 생성
 
@@ -129,7 +125,7 @@ CB-SPIDER Repository 의 .github 폴더에서 workflows 폴더를 생성한다.
 <img src="./images/guide-dashboard-app-copy.png" width="500">
 <br/><br/>
 
-## [Unit Test 파일 구성]
+## 5. Unit Test 파일 구성
 
 ### (1) Unit Test 시나리오 복사
 
@@ -183,7 +179,7 @@ Backend 서버는 docker-compose 로 구성되어 있으며 backend 폴더의 do
       container_name: cb-tumblebug-backend
   ```
 
-## [CI Workflow 수정]
+## 6. CI Workflow 수정
 
 poc-cicd-spider 에서 복사한 cb-ci-actions.yaml 파일을 CB-SPIDER Repository 환경에 맞게 수정을 진행한다.
 
@@ -399,7 +395,7 @@ golang build 테스트는 현재 1.16 버전 하나만 수행하고 있다. 만�
         go: ["1.16", "1.17"] // 1.17 버전 추가
   ```
 
-## [CD Workflow 수정]
+## 7. CD Workflow 수정
 
 poc-cicd-spider 에서 복사한 cb-cd-actions.yaml 파일을 CB-SPIDER Repository 환경에 맞게 수정을 진행한다.
 
@@ -418,7 +414,7 @@ cb-cd-image-deploy-job:
     IMAGE_NAME: cb-spider // CB-SPIDER 의 이미지 이름으로 변경
 ```
 
-## [REPORTS Workflow 수정]
+## 8. Reports Workflow 수정
 
 poc-cicd-spider 에서 복사한 cb-report.yaml 파일을 CB-SPIDER Repository 환경에 맞게 수정을 진행한다.
 
@@ -435,7 +431,7 @@ cb-reports-job:
     DASHBOARD_REPO: cb-spider-dashboard // CB-SPIDER 의 Dashboard Repository 이름으로 변경
 ```
 
-## [Workflow Job 추가]
+## 9. Workflow Job 추가
 
 Cloud-Barista CI/CD Workflow 에 간단한 CB-CI-ECHO-JOB 을 추가하는 방법을 설명한다. 새로운 Job 을 추가하는 방법을 이해하고 Reports 와 Dashboard 에 이르는 프로세스를 전체적으로 파악하도록 한다. CB-CI-ECHO-JOB 는 echo 명령어로 출력한 문자열을 Dashboard 에 보여주는 작업을 수행한다.
 
@@ -617,7 +613,7 @@ publishReport.echo.details = echoLog
   </div>
   ```
 
-## [Unit Test 시나리오 추가]
+## 10. Unit Test 시나리오 추가
 
 Unit Test 시나리오를 추가하고자 할 경우 다음을 참고한다. 간단한 Cloud OS 목록을 출력하는 REST API 시나리오를 기준으로 설명한다.
 
@@ -706,7 +702,7 @@ func TestCloudOS(t *testing.T) {
     }
   ```
 
-## [Unit Test 시나리오 수정]
+## 11. Unit Test 시나리오 수정
 
 Unit Test 기존 시나리오를 수정하고자 할 경우 다음을 참고한다.
 

@@ -191,7 +191,7 @@ skip_tags 변수는 CB-ENV-JOB 의 outputs 항목에 정의되어 있어 다른 
 cb-env-job:
   name: CB-ENV-JOB
   outputs:
-    skip_tags: ${{ steps.cev.outputs.steps.cev.outputs.skip_tags }}
+    skip_tags: ${{ steps.cev.outputs.skip_tags }}
 ```
 
 예로, CB-CI-SHOSTED-JOB / CB-CI-TEST-JOB / CB-CI-IMAGE-BUILD-JOB 의 실행여부를 제어해보자.
@@ -340,7 +340,7 @@ cb-ci-shosted-job:
   </p>
   ```
 
-### (3) Converage 실행 환경 수정
+### (3) Coverage 실행 환경 수정
 
 CB-SPIDER Repository 에서 Unit Test 시나리오는 test/interface-test 에 위치하고 있다. 다른 위치(예로, unit-test 폴더)로 변경하고, 특정 패키지(예로, cloud-driver 관련 패키지)를 커버리지에서 제외 할 경우 다음과 같이 수정을 진행한다.
 

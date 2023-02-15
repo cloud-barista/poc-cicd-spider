@@ -48,7 +48,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/prometheus/client_golang v1.11.0
+	github.com/prometheus/client_golang v1.11.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/snowzach/rotatefilehook v0.0.0-20180327172521-2f64f265f58c
 	github.com/soheilhy/cmux v0.1.4 // indirect
